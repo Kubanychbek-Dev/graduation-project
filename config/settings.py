@@ -162,8 +162,8 @@ if CACHE_ENABLED:
     }
     
 JAZZMIN_SETTINGS = {
-    # "site_logo": "",
     "site_header": "ESHOP",
     "site_brand": "ESHOP",
+    # "site_logo": "",
     "copyright": "eshop.com"
 }
