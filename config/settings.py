@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     # Base apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom apps
     'core',
+    'userauths',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +150,7 @@ MEDIA_ROOT = (
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'userauths.User'
 
 CACHE_ENABLED = os.getenv("CACHE_ENABLED") == "True"
 if CACHE_ENABLED:
@@ -158,3 +161,9 @@ if CACHE_ENABLED:
         }
     }
     
+JAZZMIN_SETTINGS = {
+    # "site_logo": "",
+    "site_header": "ESHOP",
+    "site_brand": "ESHOP",
+    "copyright": "eshop.com"
+}
