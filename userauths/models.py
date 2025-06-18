@@ -6,7 +6,7 @@ class User(AbstractUser):
   """Расширение модели пользователя"""
   """User Model Extension"""
   email = models.EmailField(unique=True)
-  username = models.CharField(max_length=100)
+  username = models.CharField(unique=False, max_length=100)
   USERNAME_FIELD = "email"
   REQUIRED_FIELDS = ["username"]
 

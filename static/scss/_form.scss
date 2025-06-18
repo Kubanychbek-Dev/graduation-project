@@ -1,0 +1,39 @@
+.form-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 60px;
+  border: 1px solid hsl(0, 7%, 66%);
+  padding: 6px;
+  background-color: #fff;
+  border-radius: 2%;
+  box-shadow: 50px 35px 100px 29px rgba(34, 60, 80, 0.39);
+}
+
+.form-logo {
+  text-align: center;
+  margin-top: 30px;
+   a {
+    text-decoration: none;
+    font-weight: bold;
+    font-style: italic;
+    color: #0866FF;
+    font-size: 38px;
+   }
+}
+
+.form-header {
+  background-color: #E3E6E6;
+}
+
+.register-title {
+  color: #0866FF;
+  font-style: italic;
+  text-align: center;
+}
+
+.input {
+  border-color: #333;
+  padding: 10px 0;
+  font-weight: bold;
+}
+
