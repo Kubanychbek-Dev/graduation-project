@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from .forms import UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
 def register_view(request):
@@ -26,3 +29,24 @@ def register_view(request):
     }
   return render(request, "userauths/sign_up.html", context)
     
+
+def login_view(request):
+  """Вход в систему"""
+  """Login"""
+  if request.user.is_authenticated:
+    return redirect("core:home")
+  
+  if request.method =="POST":
+    email = request.POST.get("email")
+    password = request.POST.get("password")
+    user = authenticate(request, email=email, password=password)
+
+    if user is not None:
+      login(request, user)
+      messages.success(request, "Вы вошли в систему")
+      return redirect("core:home")
+    else:
+      messages.error(request, "Что-то не так, пожалуйста, введите правильно или аккаунт не существует")
+  
+  context = {"title": "Вход в аккаунт"}
+  return render(request, "userauths/login.html", context)

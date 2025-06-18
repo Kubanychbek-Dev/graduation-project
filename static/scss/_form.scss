@@ -35,5 +35,36 @@
   border-color: #333;
   padding: 10px 0;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
+.form-footer {
+  border-top: 1px solid #000;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form-footer-text {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.form-footer-link {
+  margin-bottom: 18px;
+
+  a {
+    text-decoration: none;
+    color: #0866FF;
+    font-weight: bold;
+    font-size: 22px;
+    border: 1px solid #0866FF;
+    padding: 8px 6px;
+    border-radius: 8px;
+  }
+
+  a:hover {
+    color: #fff;
+    background-color: #0866FF;
+  }
+}
