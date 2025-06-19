@@ -12,6 +12,7 @@ def register_view(request):
   """User Authentication and Login"""
   if request.user.is_authenticated:
     return redirect("core:home")
+  
   form = UserRegisterForm()
   if request.method == "POST":
     form = UserRegisterForm(request.POST)
@@ -48,7 +49,13 @@ def login_view(request):
       messages.success(request, "Вы вошли в систему")
       return redirect("core:home")
     else:
-      messages.error(request, "Что-то не так, пожалуйста, введите правильно или аккаунт не существует")
+      messages.error(request, "Что-то не так, пожалуйста, введите данные правильно или аккаунт не существует")
   
   context = {"title": "Вход в аккаунт"}
   return render(request, "userauths/login.html", context)
+
+
+def logout_view(request):
+  logout(request)
+  messages.success(request, "Вы успешно вышли из системы")
+  return redirect("userauths:login")
