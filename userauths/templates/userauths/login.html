@@ -1,8 +1,16 @@
 {% extends "core/base.html" %}
 {% block content %}
+
 <div class="container">
   <div class="form-logo">
       <a href="{% url 'core:home' %}">ESHOP</a>
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
     </div>
   <div class="form-wrapper">
     <div class="form-header">
@@ -16,11 +24,6 @@
           <button class="btn btn-success" type="submit">Войти</button>
         </form>
         </div>
-        {% for message in messages %}
-        <div class="alert alert-danger">
-          <strong>{{ message }}</strong>
-        </div>
-        {% endfor %}
         <div class="form-footer">
           <h6 class="form-footer-text">У вас нет учетной записи?</h6>
           <div class="form-footer-link">
