@@ -10,6 +10,8 @@ User = settings.AUTH_USER_MODEL
 def register_view(request):
   """Аутентификация пользователя и вход в систему"""
   """User Authentication and Login"""
+  if request.user.is_authenticated:
+    return redirect("core:home")
   form = UserRegisterForm()
   if request.method == "POST":
     form = UserRegisterForm(request.POST)
