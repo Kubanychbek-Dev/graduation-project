@@ -24,7 +24,7 @@ def register_view(request):
       return redirect("core:home")
     
   context = {
-      "title": "User Sign-Up",
+      "title": "Создать аккаунт",
       "form": form
     }
   return render(request, "userauths/sign_up.html", context)
