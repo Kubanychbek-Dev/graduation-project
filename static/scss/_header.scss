@@ -1,20 +1,43 @@
 .header {
-  margin-top: 10px;
   margin-bottom: 30px;
+}
 
-  &__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  }
+.header-top {
+  color: #fff;
+  background-color: #131921;
+  padding: 18px 0;
 }
 
 .header-upper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
+}
+
+.location a {
+  text-decoration: none;
+  color: #38b000;
+  font-weight: bold;
+}
+
+#lang-select {
+  border: none;
+  background-color: #131921;
+  color: #fff;
+  font-size: 20px;
+}
+
+.header-bottom {
+  color: #fff;
+  background-color: #232F3E;
+  padding: 18px 0;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .header-middle {
@@ -24,28 +47,76 @@
 }
 
 .logo {
-  text-decoration: none;
-  font-weight: bold;
-  font-style: italic;
-  color: #0866FF;
-  font-size: 28px;
+    text-decoration: none;
+    font-weight: bold;
+    font-style: italic;
+    color: #0866FF;
+    font-size: 36px;
 }
 
-.middle-menu {
+.search {
+  width: 40%;
+}
+
+#search {
+  color: #333;
+  width: 80%;
+  font-style: italic;
+  padding: 12px 18px;
+  border-radius: 8px;
+}
+
+.search-btn {
+  border: none;
+}
+
+.header-middle-menu {
   display: flex;
   align-items: center;
   justify-content: center;
   list-style: none;
-  margin-top: 10px;
+
+  li {
+    margin-top: 14px;
+  }
+
+  li + li {
+    margin-left: 18px;
+  }
+
+  li a {
+    text-decoration: none;
+    color: #fff;
+
+    svg {
+      fill: green;
+    }
+  }
 }
 
-.middle-item {
+.header-un {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-btn {
+  color: #fff;
+  background-color: #1A6CFF;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 20px;
+  padding: 10px 20px;
+}
+
+.header-un-menu {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6px;
-}
+  gap: 10px;
+  list-style: none;
 
-.middle-item + .middle-item {
-  margin-left: 30px;
+  li a{
+    text-decoration: none;
+  }
 }

@@ -30,6 +30,7 @@ RATING = (
 
 
 def user_directory_path(instance, filename):
+  """Эта функция динамически определяет путь загрузки файла на основе связанного идентификатора пользователя."""
   """Каталог пользователя"""
   """User directory"""
   return "user_{0}/{1}".format(instance.user.id, filename)
@@ -91,7 +92,7 @@ class Product(models.Model):
   specification = models.TextField(null=True, blank=True)
   price = models.DecimalField(max_digits=19, decimal_places=2)
   old_price = models.DecimalField(max_digits=19, decimal_places=2)
-  tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+  # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
   product_status = models.CharField(choices=STATUS, max_length=10, default="in review")
   in_stock = models.BooleanField(default=True)
   status = models.BooleanField(default=True)
