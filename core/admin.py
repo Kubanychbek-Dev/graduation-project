@@ -9,7 +9,7 @@ class ProductImagesAdmin(admin.TabularInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
   inlines = [ProductImagesAdmin]
-  list_display = ["user", "title", "product_image", "price", "featured", "product_status"]
+  list_display = ["user", "title", "product_image", "price", "category", "vendor", "featured", "product_status"]
 
 
 @admin.register(Category)

@@ -3,10 +3,11 @@ from .models import Category, Vendor, Product, ProductImages, CartOrder, CartOrd
 
 
 def index(request):
-  products = Product.objects.all()
+  categories = Category.objects.all()
 
   context = {
     "title": "Домашняя страница",
-    "products": products
+    "categories": categories
   }
+  
   return render(request, "core/home.html", context)

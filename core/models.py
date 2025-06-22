@@ -1,6 +1,7 @@
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
+from django.db.models import Count
 from userauths.models import User
 
 
@@ -85,13 +86,14 @@ class Vendor(models.Model):
 class Product(models.Model):
   pid = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="abcdefghik123456")
   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-  category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+  category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
+  vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
   title = models.CharField(max_length=100)
   image = models.ImageField(upload_to=user_directory_path)
   description = models.TextField(null=True, blank=True)
   specification = models.TextField(null=True, blank=True)
   price = models.DecimalField(max_digits=19, decimal_places=2)
-  old_price = models.DecimalField(max_digits=19, decimal_places=2)
+  old_price = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
   # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
   product_status = models.CharField(choices=STATUS, max_length=10, default="in review")
   in_stock = models.BooleanField(default=True)
@@ -114,8 +116,8 @@ class Product(models.Model):
     return self.title
   
   def get_percentage(self):
-    new_price = (self.price / self.old_price) * 100
-    return new_price
+    percent = ((self.old_price - self.price) / self.old_price) * 100
+    return percent
   
 
 class ProductImages(models.Model):

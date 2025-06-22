@@ -10,4 +10,10 @@ window.addEventListener("load", () => {
   };
   removeAlert();
   
+
+  const categoryBtn = document.querySelector(".category-btn");
+  categoryBtn.addEventListener("click", () => {
+    document.querySelector(".category-list").classList.toggle("category-list--show");
+  });
+  
 });
