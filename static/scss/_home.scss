@@ -6,6 +6,12 @@
   margin-bottom:20px;
   padding: 4px;
   box-shadow: 50px 35px 100px 29px rgba(34, 60, 80, 0.39);
+  transition: all 0.9s;
+}
+
+.category-card:hover {
+  scale: 1.1;
+  border-color: red;
 }
 
 .category-img-wrapper {
