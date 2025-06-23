@@ -67,7 +67,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'core.context_processor.default',
+                # Context processor
+                'core.context_processor.default', # <= this
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

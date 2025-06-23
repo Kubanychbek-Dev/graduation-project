@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "core/navbar.html" %}
+<div class="container">
+  <div class="row">
+    {% for vendor in vendors %}
+    <div class="col-12 col-md-6">
+      <div class="vendor-card">
+        <div class="vendor-card-body">
+          <div class="vendor-img">
+            <img src="{{ vendor.image.url }}" alt="Vendor Img">
+          </div>
+          <div class="vendor-info">
+            <h3 class="vendor-title">{{ vendor.title }}</h3>
+            <span class="vendor-rating">⭐⭐⭐⭐☆</span>
+            <br>
+            <p class="vendor-address"><strong>{{ vendor.address }}</strong></p>
+            <a class="vendor-phone" href="tel:{{ vendor.contact }}">Телефон</a>
+          </div>
+        </div>
+        <div class="vendor-card-footer">
+          <a class="vendor-products" href="#">Товары: {{ vendor.product.count }}</a>
+          <a class="cendor-site" href="#">Посетите сайт</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

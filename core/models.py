@@ -87,7 +87,7 @@ class Product(models.Model):
   pid = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="abcdefghik123456")
   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
   category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
-  vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+  vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, related_name="product")
   title = models.CharField(max_length=100)
   image = models.ImageField(upload_to=user_directory_path)
   description = models.TextField(null=True, blank=True)

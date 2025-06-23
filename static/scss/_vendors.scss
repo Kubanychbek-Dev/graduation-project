@@ -1,0 +1,55 @@
+.vendor-card {
+  border: 1px solid hsla(0, 3%, 61%, 0.466);
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #fff;
+  margin-bottom: 16px;
+}
+
+.vendor-card-body {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vendor-img {
+  width: 50%;
+  img {
+    width: 80%;
+    height: auto;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  }
+
+.vendor-title {
+  margin-bottom: 10px;
+}
+
+.vendor-address {
+  margin-top: 20px;
+}
+
+.vendor-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    border: 1px solid #ddd;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+}
+
+.vendor-products {
+  background-color: aqua;
+  color: black;
+}
+
+.cendor-site {
+  color: #fff;
+  background-color: green;
+}
