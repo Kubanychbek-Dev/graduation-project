@@ -8,14 +8,14 @@
       <div class="col-12 col-md-4">
           <div class="category-card">
             <div class="category-img-wrapper">
-            <a href="#">
+            <a href="{% url 'core:products' category.cid %}">
               <img class="category-img" src="{{ category.image.url }}" alt="Category Img">
             </a>
           </div>
           <h4 class="category-title">
-            <a href="#">{{ category.title }}</a>
+            <a href="{% url 'core:products' category.cid %}">{{ category.title }}</a>
           </h4>
-          <span class="category-count">Количество товар: {{ category.category.count }}шт</span>
+          <span class="category-count">Количество товаров: {{ category.category.count }}шт</span>
           </div>
       </div>
       {% endfor %}

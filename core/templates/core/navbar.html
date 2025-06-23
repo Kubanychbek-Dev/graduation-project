@@ -71,7 +71,7 @@
               <ul class="category-list">
                 {% for category in categories %}
                 <li class="category-item">
-                  <a href="#">
+                  <a href="{% url 'core:products' category.cid %}">
                     {{ category.title }}
                   </a>
                   <span>{{ category.category.count }}</span>

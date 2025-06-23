@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Category, Vendor, Product, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
 
 
-def index(request):
+def category_list_view(request):
   # Подсчет всех товаров этой категории
   # categories = Category.objects.all().annotate(product_count=Count("products"))
   categories = Category.objects.all()
@@ -14,3 +14,14 @@ def index(request):
   }
   
   return render(request, "core/home.html", context)
+
+
+def product_list_view(request, cid):
+  category = Category.objects.get(cid=cid)
+  products = Product.objects.filter(product_status="published", category=category)
+
+  context = {
+    "category": category,
+    "products": products
+  }
+  return render(request, "core/product-list.html", context)
