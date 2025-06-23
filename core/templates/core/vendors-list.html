@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="vendor-card-footer">
-          <a class="vendor-products" href="#">Товары: {{ vendor.product.count }}</a>
+          <a class="vendor-products" href="{% url 'core:vendor-products' vendor.vid %}">Товары: {{ vendor.product.count }}</a>
           <a class="cendor-site" href="#">Посетите сайт</a>
         </div>
       </div>
