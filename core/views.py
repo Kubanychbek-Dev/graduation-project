@@ -22,7 +22,7 @@ def product_list_view(request, cid):
 
   context = {
     "title": category.title,
-    "category": category,
+    # "category": category,
     "products": products
   }
   return render(request, "core/product-list.html", context)

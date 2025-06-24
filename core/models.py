@@ -117,7 +117,7 @@ class Product(models.Model):
   
   def get_percentage(self):
     percent = ((self.old_price - self.price) / self.old_price) * 100
-    return percent
+    return round(percent)
   
 
 class ProductImages(models.Model):
