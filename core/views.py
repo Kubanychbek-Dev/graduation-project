@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 # from django.db.models import Count
 from .models import Category, Vendor, Product, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
 
@@ -22,7 +22,6 @@ def product_list_view(request, cid):
 
   context = {
     "title": category.title,
-    # "category": category,
     "products": products
   }
   return render(request, "core/product-list.html", context)
@@ -44,7 +43,19 @@ def vendor_products_view(request, vid):
 
   context = {
     "title": vendor.title + " - купить товары",
-    "category": vendor,
     "products": products
   }
   return render(request, "core/product-list.html", context)
+
+
+def product_detail_view(request, pid):
+  # product = get_object_or_404(Product, pid=pid)
+  product = Product.objects.get(pid=pid)
+  product_images = product.product_imgs.all()
+
+  context = {
+    "title": product.title,
+    "product": product,
+    "images": product_images
+  }
+  return render(request, "core/product-detail.html", context)

@@ -96,6 +96,7 @@ class Product(models.Model):
   old_price = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
   # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
   product_status = models.CharField(choices=STATUS, max_length=10, default="in review")
+  stock_count = models.CharField(max_length=1000, null=True)
   in_stock = models.BooleanField(default=True)
   status = models.BooleanField(default=True)
   featured = models.BooleanField(default=False)
@@ -121,8 +122,8 @@ class Product(models.Model):
   
 
 class ProductImages(models.Model):
-     image = models.ImageField(upload_to="product-images")
-     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+     images = models.ImageField(upload_to="product-images")
+     product = models.ForeignKey(Product, related_name="product_imgs", on_delete=models.SET_NULL, null=True)
      date = models.DateTimeField(auto_now_add=True)
 
      class Meta:

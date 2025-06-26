@@ -13,14 +13,14 @@
 
           <div class="product-card-body">
             <div class="product-card-image">
-              <a href="#">
+              <a href="{% url 'core:product_detail' product.pid %}">
                 <img src="{{ product.image.url }}" alt="{{ product.title }}">
               </a>
             </div>
             <div class="product-card-info">
               <p class="product-cat-title">{{ product.category.title }}</p>
               <h4 class="product-card-title">
-                <a href="#">{{ product.title }}</a>
+                <a href="{% url 'core:product_detail' product.pid %}">{{ product.title }}</a>
               </h4>
               <p class="product-card-rating">⭐⭐⭐⭐☆</p>
               <p class="product-card-vendor">{{ product.vendor.title }} <span><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21 6.285l-11.16 12.733-6.84-6.018 1.319-1.49 5.341 4.686 9.865-11.196 1.475 1.285z"/></svg></span></p>

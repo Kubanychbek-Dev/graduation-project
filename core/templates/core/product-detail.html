@@ -1,0 +1,126 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+{% include "core/navbar.html" %}
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-5">
+        <div class="product-detail-left">
+          <div class="main-img-wrapper">
+            <img class="big-img" src="{{ product.image.url }}" alt="{{ product.title }}">
+          </div>
+          <div class="product-other-imgs">
+            {% for img in images %}
+            <img class="small-img" src="{{ img.images.url }}" alt="">
+            {% endfor %}
+          </div> 
+        </div>
+      </div>
+
+    <div class="col-12 col-md-5">
+      <div class="product-detail-center">
+        <p class="price-wrapper">
+          {% if product.old_price %}
+              <span class="price">{{ product.price }}</span>
+              <span class="old_price">{{ product.old_price }}</span>
+              <span class="percent">-{{ product.get_percentage }}%</span>
+              {% else %}
+              <span class="price">{{ product.price }}</span>
+              {% endif %}
+        </p>
+        <p class="product-title">{{ product.title }}</p>
+        <div class="wrapper">
+          <input type="number" name="count" id="count" placeholder="Шт">
+          <button class="cart-btn btn btn-success">Добавить в корзину</button>
+          <span class="wish-btn">&#9825;</span>
+        </div>
+        <p class="stock"><span>В наличии:</span> {{ product.stock_count }}шт</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-2">
+      <div class="card">
+        <div class="card-body">
+          <p class="address-text">
+            {% if address.address %}
+            <strong>Ваш адрес:</strong> {{ address.address }}
+            <br>
+            <hr>
+            <a class="btn btn-info" href="#">Изменить адрес</a>
+            {% else %}
+            <strong>Адрес не указан</strong>
+            <br>
+            <hr>
+            <a class="btn btn-success" href="#">Указать адрес</a>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <div class="card card-body">
+        <div class="return-guarantee-card">
+        <strong>Возврат & гарантия:</strong>
+        <p class="return-text">Возврат в течение {{ product.vendor.days_return }} дней</p>
+        <p class="warrany-text">Гарантия {{ product.vendor.guarantee_period }} месяцев</p>
+      </div>
+      </div>
+      <br>
+      <div class="vendor-card">
+        <div class="vendor-card-body">
+          <div class="vendor-info">
+            <h3 class="vendor-title">{{ product.vendor.title }}</h3>
+            <span class="vendor-rating">⭐⭐⭐⭐☆</span>
+            <br>
+            <p class="vendor-address"><strong>{{ product.vendor.address }}</strong></p>
+            <a class="vendor-phone" href="tel:{{ product.vendor.contact }}">Телефон</a>
+          </div>
+        </div>
+        <br>
+        <div class="vendor-card-footer">
+          <a class="cendor-site" href="#">Посетите сайт</a>
+          <br>
+        </div>
+        <br>
+        <strong>Хотите стать продавцом?</strong>
+        <br>
+        <br>
+        <a class="btn btn-info" href="#">Зарегистрируйтесь сейчас</a>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-9">
+      <div class="product-tab tab">
+        <div class="tab__header">
+          <ul class="tab__list">
+            <li data-tab="tab-1" class="tab__item border--bottom">Описание</li>
+            <li data-tab="tab-2" class="tab__item">характеристика</li>
+            <li data-tab="tab-3" class="tab__item">Отзывы</li>
+          </ul>
+        </div>
+
+        <div class="tab__body">
+          <div id="tab-1" class="tab__content">
+            <p class="describe-text">
+              {{ product.description }}
+            </p>
+          </div>
+          <div id="tab-2" class="tab__content tab--hidden">
+            <p class="specification-text">{{ product.specification }}</p>
+          </div>
+          <div id="tab-3" class="tab__content tab--hidden">
+            <ul class="review-menu">
+              <li class="review-item">GOOD</li>
+              <li class="review-item">GOOD</li>
+              <li class="review-item">GOOD</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/product-detail.js' %}"></script>
+{% endblock %}
