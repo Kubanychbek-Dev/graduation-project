@@ -130,3 +130,28 @@
 .tab--hidden {
   display: none;
 }
+
+.review-menu {
+  list-style: none;
+  span {
+    color: grey;
+  }
+}
+
+.review-item {
+  margin-bottom: 30px;
+  border-bottom: 1px solid grey;
+
+  .user-name {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .rating-date {
+    margin-bottom: 18px;
+  }
+
+  .review-self {
+    line-height: 26px;
+  }
+}

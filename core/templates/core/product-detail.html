@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 {% include "core/navbar.html" %}
-<div class="main">
+<main class="main">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-5">
@@ -96,7 +96,7 @@
           <ul class="tab__list">
             <li data-tab="tab-1" class="tab__item border--bottom">Описание</li>
             <li data-tab="tab-2" class="tab__item">характеристика</li>
-            <li data-tab="tab-3" class="tab__item">Отзывы</li>
+            <li data-tab="tab-3" class="tab__item">Отзывы <span>{{ reviews.count }}</span></li>
           </ul>
         </div>
 
@@ -110,10 +110,24 @@
             <p class="specification-text">{{ product.specification }}</p>
           </div>
           <div id="tab-3" class="tab__content tab--hidden">
+            <h5>Средний рейтинг продукта: {{ average_rating.rating|floatformat:1 }}</h5>
+            <a class="btn btn-primary" href="#">Оставить отзыв</a>
+            <br>
+            <hr>
             <ul class="review-menu">
-              <li class="review-item">GOOD</li>
-              <li class="review-item">GOOD</li>
-              <li class="review-item">GOOD</li>
+              {% for review in reviews %}
+              {% if reviews.count is not 0 %}
+              <li class="review-item">
+                <h5 class="user-name">{{ review.user.username }}</h5>
+                <p class="rating-date">
+                  <span>{{ review.date|date:"d. m. Y" }}</span> {{ review.rating }}
+                </p>
+                <p class="review-self">{{ review.review }}</p>
+              </li>
+              {% elif reviews.count == 0 %}
+              <h4 class="text-center">Отзывов пока нет</h4>
+              {% endif %}
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -121,6 +135,6 @@
     </div>
     </div>
   </div>
-</div>
+</main>
 <script src="{% static 'js/product-detail.js' %}"></script>
 {% endblock %}
