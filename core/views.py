@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 # from django.db.models import Count
+from django.http import HttpResponse
+from django.http import JsonResponse
 from django.db.models import Avg
 from .models import Category, Vendor, Product, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
+from .forms import ProductReviewForm
 
 
 def category_list_view(request):
@@ -55,12 +58,42 @@ def product_detail_view(request, pid):
   product_images = product.product_imgs.all()
   reviews = ProductReview.objects.filter(product=product).order_by("-date")
   average_rating = ProductReview.objects.filter(product=product).aggregate(rating=Avg("rating"))
+  review_form = ProductReviewForm()
 
   context = {
     "title": product.title,
     "product": product,
     "images": product_images,
     "reviews": reviews,
-    "average_rating": average_rating
+    "average_rating": average_rating,
+    "review_form": review_form
   }
   return render(request, "core/product-detail.html", context)
+
+
+def add_review(request, pid):
+  product = Product.objects.get(pid=pid)
+  user = request.user
+
+  review = ProductReview.objects.create(
+    user=user,
+    product=product,
+    review = request.POST["review"],
+    rating = request.POST["rating"],
+  )
+
+  context = {
+    "user": user.username,
+    "review": request.POST["review"],
+    "rating": request.POST["rating"],
+  }
+
+  average_rating = ProductReview.objects.filter(product=product).aggregate(rating=Avg("rating"))
+
+  return JsonResponse(
+    {
+      "bool": True,
+      "context": context
+    }
+  )
+  

@@ -96,7 +96,7 @@
           <ul class="tab__list">
             <li data-tab="tab-1" class="tab__item border--bottom">Описание</li>
             <li data-tab="tab-2" class="tab__item">характеристика</li>
-            <li data-tab="tab-3" class="tab__item">Отзывы <span>{{ reviews.count }}</span></li>
+            <li data-tab="tab-3" class="tab__item">Отзывы <span id="reviews-count">{{ reviews.count }}</span></li>
           </ul>
         </div>
 
@@ -110,24 +110,39 @@
             <p class="specification-text">{{ product.specification }}</p>
           </div>
           <div id="tab-3" class="tab__content tab--hidden">
-            <h5>Средний рейтинг продукта: {{ average_rating.rating|floatformat:1 }}</h5>
-            <a class="btn btn-primary" href="#">Оставить отзыв</a>
-            <br>
+            <button class="btn btn-primary review-btn">Оставить отзыв</button>
+            <strong id="review-response"></strong>
+            <div class="review-form-wrapper">
+              <hr>
+              <form class="review-form" action="{% url 'core:add_review' product.pid %}" id="review-form" method="POST">
+                {% csrf_token %}
+                {{ review_form }}
+                <hr>
+                <button type="submit" class="btn btn-success review-submit">Сохранить</button>
+              </form>
+            </div>
+
             <hr>
+            <br>
             <ul class="review-menu">
+              {% if reviews.count %}
+              <h5 id="average-rating">Средний рейтинг продукта: {{ average_rating.rating|floatformat:1 }}</h5>
+              <hr>
               {% for review in reviews %}
-              {% if reviews.count is not 0 %}
               <li class="review-item">
                 <h5 class="user-name">{{ review.user.username }}</h5>
                 <p class="rating-date">
-                  <span>{{ review.date|date:"d. m. Y" }}</span> {{ review.rating }}
+                  <span>{{ review.date|date:"d.m.Y" }}</span>
+                  {% for i in review.rating|ljust:review.rating %}
+                  <i class="fas fa-star text-warning"></i>
+                  {% endfor %}
                 </p>
                 <p class="review-self">{{ review.review }}</p>
               </li>
-              {% elif reviews.count == 0 %}
+              {% endfor %}
+              {% else %}
               <h4 class="text-center">Отзывов пока нет</h4>
               {% endif %}
-              {% endfor %}
             </ul>
           </div>
         </div>

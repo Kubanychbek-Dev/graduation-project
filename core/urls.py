@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import category_list_view, product_list_view, vendors_list_view, vendor_products_view, product_detail_view
+from .views import category_list_view, product_list_view, vendors_list_view, vendor_products_view, product_detail_view, add_review
 
 urlpatterns = [
   # categories
@@ -10,4 +10,6 @@ urlpatterns = [
     # Vendors
     path('vendors/', vendors_list_view, name="vendors"),
     path('vendor_products/<vid>/', vendor_products_view, name="vendor-products"),
+    # Add review
+    path('add_review/<pid>/', add_review, name="add_review"),
 ]

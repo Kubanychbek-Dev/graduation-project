@@ -1,3 +1,4 @@
+// Img turning
 const bigImg = document.querySelector(".big-img");
 const smallImgs = document.querySelectorAll(".small-img");
 
@@ -16,7 +17,7 @@ smallImgs.forEach((img) => {
   })
 });
 
-
+// Tabs
 const tabItem = document.querySelectorAll(".tab__item");
 const tabContent = document.querySelectorAll(".tab__content");
 
@@ -33,5 +34,67 @@ tabItem.forEach((item) => {
 
     content.classList.remove("tab--hidden");
 
+  })
+})
+
+// Add Review
+const reviewBtn = document.querySelector(".review-btn");
+reviewBtn.addEventListener("click", (e) => {
+  document.querySelector(".review-form-wrapper").classList.toggle("review-form--show");
+})
+
+
+function addReview(data) {
+  const d = new Date()
+  const date = d.getDate();
+  const month = d.getMonth() + 1;
+  const year = d.getFullYear();
+
+  const reviewMenu = document.querySelector(".review-menu");
+  const li = document.createElement("li");
+  li.classList.add("review-item");
+  let stars = "";
+  for(let i = 1; i <= data.context.rating; i++) {
+    stars += '<i class="fas fa-star text-warning"></i>';
+  }
+  li.innerHTML = `
+  <h5 class="user-name">${data.context.user}</h5>
+  <p class="rating-date">
+    <span>${date}.${month}.${year}</span> ${stars}
+  </p>
+  <p class="review-self">${data.context.review}</p>
+  `;
+  reviewMenu.prepend(li);
+
+  const reviewsCount = document.querySelector("#reviews-count");
+  console.log(reviewsCount)
+  const intoNum = Number(reviewsCount.textContent) + 1
+  reviewsCount.textContent = intoNum;
+}
+
+
+$("#review-form").submit(function (event) {
+  event.preventDefault();
+  
+  $.ajax({
+    data: $(this).serialize(),
+    method: "POST",
+    url: $(this).attr("action"),
+    dataType: "json",
+    success: function(response) {
+      console.log("Data saved...");
+      
+      if(response.bool == true) {
+        $("#review-response").html("Отзыв добавлен");
+        $("#average-rating").hide();
+        $(".review-form--show").removeClass("review-form--show");
+
+        setInterval(() => {
+          $("#review-response").html("");
+        }, 3000);
+
+        addReview(response)
+      }
+    }
   })
 })

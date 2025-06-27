@@ -131,7 +131,19 @@
   display: none;
 }
 
+.review-form-wrapper {
+  display: none;
+}
+
+.review-form--show {
+  display: block;
+}
+
 .review-menu {
+  position: sticky;
+  top: 0;
+  height: 600px;
+  overflow-y: auto;
   list-style: none;
   span {
     color: grey;
@@ -155,3 +167,11 @@
     line-height: 26px;
   }
 }
+
+// // .review-response {
+// //   display: none;
+// // }
+
+// .review-response--show {
+//   display: block;
+// }
