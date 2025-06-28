@@ -106,6 +106,7 @@ $("#add-to-cart-btn").on("click", function() {
   let productID = $("#product-id").val()
   let productTitle = $("#product-title").val()
   let productPrice = $("#current-product-price").text()
+  let productImg = $("#product-img").text()
   let btn = $(this)
 
   // console.log(`${quantity}, ${productID}, ${productTitle}, ${productPrice}`)
@@ -116,6 +117,7 @@ $("#add-to-cart-btn").on("click", function() {
       "quantity": quantity,
       "title": productTitle,
       "price": productPrice,
+      "img": productImg
     },
     dataType: "json",
     beforeSend: function() {
@@ -128,3 +130,4 @@ $("#add-to-cart-btn").on("click", function() {
     }
   })
 })
+

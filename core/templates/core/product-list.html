@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
+{% load static %}
 {% include "core/navbar.html" %}
 <main class="main">
   <div class="container">
@@ -30,15 +31,19 @@
           <div class="product-card-footer">
             <div class="product-price">
               {% if product.old_price %}
-              <span class="price">{{ product.price }}</span>
+              <span id="current-product-price" class="price current-product-price-{{ product.pid }}">{{ product.price }}</span>
               <span class="old_price">{{ product.old_price }}</span>
               <span class="percent">-{{ product.get_percentage }}%</span>
               {% else %}
-              <span class="price">{{ product.price }}</span>
+              <span id="current-product-price" class="price current-product-price-{{ product.pid }}">{{ product.price }}</span>
               {% endif %}
             </div>
             <div class="add-cart-btn-wrapper">
-              <button class="add-cart-btn">Добавить в корзину</button>
+              <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ product.pid }}">
+              <input type="hidden" class="product-pid-{{ product.pid }}" value="{{ product.pid }}">
+              <input type="hidden" class="product-img-{{ product.pid }}" value="{{ product.image.url }}">
+              <input type="hidden" class="product-title-{{ product.pid }}" value="{{ product.title }}">
+              <button id="add-to-cart-btn" data-index="{{ product.pid }}" class="add-cart-btn add-to-cart-btn">Добавить в корзину</button>
             </div>
           </div>
         </div>
@@ -47,4 +52,5 @@
     </div>
   </div>
 </main>
+<script src="{% static 'js/product-list.js' %}"></script>
 {% endblock %}

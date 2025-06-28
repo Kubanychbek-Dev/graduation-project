@@ -118,7 +118,8 @@ def add_to_cart(request):
   cart_product[str(request.GET["id"])] = {
     "title": request.GET["title"],
     "quantity": request.GET["quantity"],
-    "price": request.GET["price"]
+    "price": request.GET["price"],
+    "img": request.GET["img"],
   }
 
   if "cart_data_obj" in request.session:
