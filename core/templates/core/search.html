@@ -4,6 +4,7 @@
 <main class="main">
   <div class="container">
     <div class="row">
+      {% if products %}
       {% for product in products %}
       <div class="col-12 col-md-3">
         <div class="product-card">
@@ -44,6 +45,9 @@
         </div>
       </div>
       {% endfor %}
+      {% else %}
+      <h3 class="text-center">Товар, который вы ищете, недоступен</h3>
+      {% endif %}
     </div>
   </div>
 </main>
