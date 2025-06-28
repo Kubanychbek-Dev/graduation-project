@@ -110,7 +110,11 @@
             <p class="specification-text">{{ product.specification }}</p>
           </div>
           <div id="tab-3" class="tab__content tab--hidden">
+            {% if request.user.is_authenticated %}
             <button class="btn btn-primary review-btn">Оставить отзыв</button>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'userauths:login' %}">Оставить отзыв</a>
+            {% endif %}
             <strong id="review-response"></strong>
             <div class="review-form-wrapper">
               <hr>
@@ -126,14 +130,19 @@
             <br>
             <ul class="review-menu">
               {% if reviews.count %}
-              <h5 id="average-rating">Средний рейтинг продукта: {{ average_rating.rating|floatformat:1 }}</h5>
+              <h5 id="average-rating">
+                Средний рейтинг продукта: {{ average_rating.rating|floatformat:1 }}
+                {% for star in stars_count|ljust:stars_count %}
+                  <i class="fas fa-star text-warning"></i>
+                  {% endfor %}
+              </h5>
               <hr>
               {% for review in reviews %}
               <li class="review-item">
                 <h5 class="user-name">{{ review.user.username }}</h5>
                 <p class="rating-date">
                   <span>{{ review.date|date:"d.m.Y" }}</span>
-                  {% for i in review.rating|ljust:review.rating %}
+                  {% for star in review.rating|ljust:review.rating %}
                   <i class="fas fa-star text-warning"></i>
                   {% endfor %}
                 </p>

@@ -59,6 +59,7 @@ def product_detail_view(request, pid):
   reviews = ProductReview.objects.filter(product=product).order_by("-date")
   average_rating = ProductReview.objects.filter(product=product).aggregate(rating=Avg("rating"))
   review_form = ProductReviewForm()
+  average_rating_stars_count = int(average_rating.get("rating"))
 
   context = {
     "title": product.title,
@@ -66,6 +67,7 @@ def product_detail_view(request, pid):
     "images": product_images,
     "reviews": reviews,
     "average_rating": average_rating,
+    "stars_count": average_rating_stars_count,
     "review_form": review_form
   }
   return render(request, "core/product-detail.html", context)
