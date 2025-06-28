@@ -94,6 +94,19 @@
   }
 }
 
+.items-wrapper {
+  position: relative;
+}
+
+.choosen-products {
+  bottom: 70%;
+  right: 92%;
+  position: absolute;
+  background-color: green;
+  padding: 1px 7px;
+  border-radius: 43%;
+}
+
 .header-un {
   display: flex;
   align-items: center;

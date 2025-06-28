@@ -45,11 +45,13 @@
   .old_price {
     color: grey;
     text-decoration: line-through;
+    font-weight: bold;
   }
 
   .percent {
     color: red;
     font-size: 20px;
+    font-weight: bold;
   }
   }
 }
@@ -167,11 +169,3 @@
     line-height: 26px;
   }
 }
-
-// // .review-response {
-// //   display: none;
-// // }
-
-// .review-response--show {
-//   display: block;
-// }

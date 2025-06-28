@@ -98,3 +98,33 @@ $("#review-form").submit(function (event) {
     }
   })
 })
+
+
+// Add to cart functionality
+$("#add-to-cart-btn").on("click", function() {
+  let quantity = $("#product-quantity").val()
+  let productID = $("#product-id").val()
+  let productTitle = $("#product-title").val()
+  let productPrice = $("#current-product-price").text()
+  let btn = $(this)
+
+  // console.log(`${quantity}, ${productID}, ${productTitle}, ${productPrice}`)
+  $.ajax({
+    url: "/add-to-cart",
+    data: {
+      "id": productID,
+      "quantity": quantity,
+      "title": productTitle,
+      "price": productPrice,
+    },
+    dataType: "json",
+    beforeSend: function() {
+      console.log("Adding to cart...");
+    },
+    success: function(response) {
+      btn.html("Добавлено в корзину")
+      console.log("Successfully added");
+      $("#cart-items-count").text(response.totalcartitems)
+    }
+  })
+})

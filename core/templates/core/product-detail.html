@@ -22,17 +22,19 @@
       <div class="product-detail-center">
         <p class="price-wrapper">
           {% if product.old_price %}
-              <span class="price">{{ product.price }}</span>
+              <span id="current-product-price" class="price">{{ product.price }}</span>
               <span class="old_price">{{ product.old_price }}</span>
               <span class="percent">-{{ product.get_percentage }}%</span>
               {% else %}
-              <span class="price">{{ product.price }}</span>
+              <span id="current-product-price" class="price">{{ product.price }}</span>
               {% endif %}
         </p>
         <p class="product-title">{{ product.title }}</p>
         <div class="wrapper">
-          <input type="number" name="count" id="count" placeholder="Шт">
-          <button class="cart-btn btn btn-success">Добавить в корзину</button>
+          <input type="number" value="1" name="" id="product-quantity">
+          <input type="hidden" value="{{ product.pid }}" id="product-id">
+          <input type="hidden" value="{{ product.title }}" id="product-title">
+          <button type="submit" id="add-to-cart-btn" class="add-to-cart-btn btn btn-success">Добавить в корзину</button>
           <span class="wish-btn">&#9825;</span>
         </div>
         <p class="stock"><span>В наличии:</span> {{ product.stock_count }}шт</p>
