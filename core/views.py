@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 # from django.db.models import Count
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.http import JsonResponse
 from django.db.models import Avg
+from django.contrib import messages
 from .models import Category, Vendor, Product, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
 from .forms import ProductReviewForm
 
@@ -24,9 +25,15 @@ def product_list_view(request, cid):
   category = Category.objects.get(cid=cid)
   products = Product.objects.filter(product_status="published", category=category)
 
+  my_sessions = []
+  if "cart_data_obj" in request.session:
+    for i in request.session["cart_data_obj"]:
+      my_sessions.append(i)
+
   context = {
     "title": category.title,
-    "products": products
+    "products": products,
+    "sessions": my_sessions
   }
   return render(request, "core/product-list.html", context)
 
@@ -61,6 +68,11 @@ def product_detail_view(request, pid):
   review_form = ProductReviewForm()
   average_rating_stars_count = int(average_rating.get("rating"))
 
+  my_sessions = []
+  if "cart_data_obj" in request.session:
+    for i in request.session["cart_data_obj"]:
+      my_sessions.append(i)
+
   context = {
     "title": product.title,
     "product": product,
@@ -68,7 +80,8 @@ def product_detail_view(request, pid):
     "reviews": reviews,
     "average_rating": average_rating,
     "stars_count": average_rating_stars_count,
-    "review_form": review_form
+    "review_form": review_form,
+    "sessions": my_sessions
   }
   return render(request, "core/product-detail.html", context)
 
@@ -116,6 +129,7 @@ def add_to_cart(request):
   cart_product = {}
 
   cart_product[str(request.GET["id"])] = {
+    "pid": request.GET["pid"],
     "title": request.GET["title"],
     "quantity": request.GET["quantity"],
     "price": request.GET["price"],
@@ -139,3 +153,24 @@ def add_to_cart(request):
     "data": request.session["cart_data_obj"],
     "totalcartitems": len(request.session["cart_data_obj"])
   })
+
+
+def cart_view(request):
+  if request.user.is_authenticated is not True:
+    messages.warning(request, "Пожалуйста, войдите в систему")
+    return redirect("userauths:login")
+  
+  cart_total_amount = 0
+  
+  if "cart_data_obj" in request.session:
+    for p_id, item in request.session["cart_data_obj"].items():
+      cart_total_amount += int(item["quantity"]) * float(item["price"])
+    return render(request, "core/cart.html", {
+      "data": request.session["cart_data_obj"],
+      "totalcartitems": len(request.session["cart_data_obj"]), 
+      "cart_total_amount": cart_total_amount,
+    })
+  else:
+    messages.warning(request, "Ваша корзина пуста")
+    return redirect("core:home")
+  

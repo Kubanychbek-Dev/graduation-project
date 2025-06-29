@@ -41,9 +41,16 @@
             <div class="add-cart-btn-wrapper">
               <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ product.pid }}">
               <input type="hidden" class="product-pid-{{ product.pid }}" value="{{ product.pid }}">
+              <input type="hidden" class="product-id-{{ product.pid }}" value="{{ product.pid }}">
               <input type="hidden" class="product-img-{{ product.pid }}" value="{{ product.image.url }}">
               <input type="hidden" class="product-title-{{ product.pid }}" value="{{ product.title }}">
-              <button id="add-to-cart-btn" data-index="{{ product.pid }}" class="add-cart-btn add-to-cart-btn">Добавить в корзину</button>
+              <button id="add-to-cart-btn" data-index="{{ product.pid }}" class="add-cart-btn add-to-cart-btn">
+                {% if product.pid in sessions %}
+            Добавлено в корзину
+            {% else %}
+            Добавить в корзину
+            {% endif %}
+              </button>
             </div>
           </div>
         </div>

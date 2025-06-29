@@ -104,16 +104,18 @@ $("#review-form").submit(function (event) {
 $("#add-to-cart-btn").on("click", function() {
   let quantity = $("#product-quantity").val()
   let productID = $("#product-id").val()
+  let productPID = $("#product-pid").val()
   let productTitle = $("#product-title").val()
-  let productPrice = $("#current-product-price").text()
-  let productImg = $("#product-img").text()
+  let productPrice = parseFloat($("#current-product-price").text().replace(",", "."))
+  let productImg = $("#product-img").val()
   let btn = $(this)
-
+  
   // console.log(`${quantity}, ${productID}, ${productTitle}, ${productPrice}`)
   $.ajax({
     url: "/add-to-cart",
     data: {
       "id": productID,
+      "pid": productPID,
       "quantity": quantity,
       "title": productTitle,
       "price": productPrice,

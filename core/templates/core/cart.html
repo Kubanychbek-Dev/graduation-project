@@ -1,0 +1,69 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "core/navbar.html" %}
+<main class="main">
+  <div class="container">
+      <h2 class="cart-title">Корзина</h2>
+      <strong class="items-in-cart">Товары в корзине: {{ totalcartitems }}</strong>
+      <div class="cart">
+        <div class="row">
+          <div class="col-10 col-md-9">
+          <table class="cart__table">
+          <thead class="cart__header">
+            <tr>
+            <th>Product</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Итого</th>
+            <th>Обновить</th>
+            <th>Удалить</th>
+          </tr>
+          </thead>
+          <tbody class="cart__body">
+            {% for product_id, item in data.items %}
+          <tr>
+            <td class="cart__product-img">
+              <img src="{{ item.img }}" alt="">
+            </td>
+            <td class="cart__product-title">
+              <h6><a href="{% url 'core:product_detail' item.pid %}">{{ item.title }}</a></h6>
+            </td>
+            <td class="cart__product-price">
+              <strong>{{ item.price|floatformat:2 }}</strong>
+            </td>
+            <td class="cart__item-quantity">
+              <input type="number" value="{{ item.quantity }}">
+            </td>
+            <td class="cart__subtotal-price">
+              <h4 class="text-brand">{% widthratio item.price 1 item.quantity %}</h4>
+            </td>
+            <td class="action" data-title="refresh">
+              <button><i class="fas fa-refresh"></i></button>
+            </td>
+            <td class="action" data-title="remove">
+              <button class="delete-cart-product" data-product="{{ item.pid }}"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <div class="cart-total-price">
+              <p class="product-amount">
+                <span>Товары({{ totalcartitems }}): </span>
+                <span>{{ cart_total_amount|floatformat:2 }}</span>
+              </p>
+              <p class="cart-total-amount">
+                <span>Итого: </span><span>{{ cart_total_amount|floatformat:2 }}</span>
+              </p>
+              <a class="cart-total-btn" href="#">Перейти к оформлению</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</main>
+{% endblock %}

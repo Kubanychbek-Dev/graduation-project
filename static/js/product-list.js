@@ -4,8 +4,9 @@ $(".add-to-cart-btn").on("click", function() {
   let index = btn.attr("data-index")
   let quantity = $(".product-quantity-" + index).val()
   let productID = $(".product-pid-" + index).val()
+  let productPID = $(".product-pid-" + index).val()
   let productTitle = $(".product-title-" + index).val()
-  let productPrice = $(".current-product-price-" + index).text()
+  let productPrice = parseFloat($(".current-product-price-" + index).text().replace(",", "."))
   let productImg = $(".product-img-" + index).val()
   
   // console.log(`${quantity}, ${productID}, ${productTitle}, ${productPrice}` + productImg)
@@ -14,6 +15,7 @@ $(".add-to-cart-btn").on("click", function() {
     url: "/add-to-cart",
     data: {
       "id": productID,
+      "pid": productPID,
       "quantity": quantity,
       "title": productTitle,
       "img": productImg,
