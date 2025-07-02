@@ -38,13 +38,13 @@
               <strong>{{ item.price|floatformat:2 }}</strong>
             </td>
             <td class="cart__item-quantity">
-              <input type="number" value="{{ item.quantity }}">
+              <input id="product-qty-{{ item.pid }}" type="number" value="{{ item.quantity }}">
             </td>
             <td class="cart__subtotal-price">
-              <h4 class="text-brand">{% widthratio item.price 1 item.quantity %}</h4>
+              <h4 id="subtotal-price-{{ item.pid }}" class="text-brand">{% widthratio item.price 1 item.quantity %}</h4>
             </td>
             <td class="action" data-title="refresh">
-              <button><i class="fas fa-refresh"></i></button>
+              <button class="update-cart-product" data-product="{{ item.pid }}"><i class="fas fa-refresh"></i></button>
             </td>
             <td class="action" data-title="remove">
               <button class="delete-cart-product" data-product="{{ item.pid }}"><i class="fas fa-trash"></i></button>
