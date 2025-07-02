@@ -1,10 +1,15 @@
 {% extends "core/base.html" %}
 {% block content %}
+{% load static %}
 {% include "core/navbar.html" %}
 <main class="main">
-  <div class="container">
+  <div class="container" id="cart-container">
+    {% if not data %}
+    <h2 class="text-center">Ваша корзина пуста</h2>
+    {% else %}
       <h2 class="cart-title">Корзина</h2>
       <strong class="items-in-cart">Товары в корзине: {{ totalcartitems }}</strong>
+      <input type="hidden" id="cart-item-amount" value="">
       <div class="cart">
         <div class="row">
           <div class="col-10 col-md-9">
@@ -22,7 +27,7 @@
           </thead>
           <tbody class="cart__body">
             {% for product_id, item in data.items %}
-          <tr>
+          <tr id="{{ item.pid }}">
             <td class="cart__product-img">
               <img src="{{ item.img }}" alt="">
             </td>
@@ -53,17 +58,19 @@
           <div class="col-12 col-md-3">
             <div class="cart-total-price">
               <p class="product-amount">
-                <span>Товары({{ totalcartitems }}): </span>
-                <span>{{ cart_total_amount|floatformat:2 }}</span>
+                <span class="product-amount-span-1">Товары({{ totalcartitems }}): </span>
+                <span class="product-amount-span-2">{{ cart_total_amount|floatformat:2 }}</span>
               </p>
               <p class="cart-total-amount">
-                <span>Итого: </span><span>{{ cart_total_amount|floatformat:2 }}</span>
+                <span>Итого: </span><span class="cart-total-amount-span-1">{{ cart_total_amount|floatformat:2 }}</span>
               </p>
               <a class="cart-total-btn" href="#">Перейти к оформлению</a>
             </div>
           </div>
         </div>
       </div>
+      {% endif %}
   </div>
 </main>
+<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}
