@@ -12,4 +12,14 @@ class User(AbstractUser):
 
   def __str__(self):
     return self.username
-  
+
+
+class UserProfile(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  image = models.ImageField(upload_to="image")
+  first_name = models.CharField(max_length=50, null=True, blank=True)
+  last_name = models.CharField(max_length=50, null=True, blank=True)
+  phone = models.CharField(max_length=50, null=True, blank=True)
+
+  def __str__(self):
+    return self.first_name

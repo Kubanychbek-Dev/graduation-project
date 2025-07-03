@@ -4,6 +4,7 @@
 <main class="main">
   <div class="container">
      <div class="row">
+      {% if category %}
       {% for category in categories %}
       <div class="col-12 col-md-4">
           <div class="category-card">
@@ -19,6 +20,7 @@
           </div>
       </div>
       {% endfor %}
+      {% endif %}
      </div>
   </div>
 </main>

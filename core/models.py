@@ -188,8 +188,8 @@ class WishList(models.Model):
 
 
 class Address(models.Model):
-   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-   address = models.CharField(max_length=100)
+   user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+   address = models.CharField(max_length=100, null=True, blank=True)
    status = models.BooleanField(default=False)
 
    class Meta:

@@ -1,0 +1,37 @@
+.customer-dashboard {
+
+  .dashboard {
+
+    &__menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    &__item {
+      border: 1px solid grey;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    &__item:hover {
+      color: #fff;
+      background-color: green;
+    }
+
+    &__link {
+      text-decoration: none;
+      color: #333;
+    }
+
+
+  }
+}
+
+.active-link {
+  color: #fff;
+  background-color: green;
+}

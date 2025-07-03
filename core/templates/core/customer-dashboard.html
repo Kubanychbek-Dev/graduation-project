@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "core/navbar.html" %}
+<main class="main">
+  <div class="container">
+    <div class="customer-dashboard">
+      <div class="dashboard">
+          <div class="row">
+          <div class="col-12 col-md-3">
+            <ul class="dashboard__menu">
+              <li class="dashboard__item active-link">Профиль</li>
+              <li class="dashboard__item">Мои Заказы</li>
+              <li class="dashboard__item">Мой адрес</li>
+              <li class="dashboard__item">Настройки профиля</li>
+              <li class="dashboard__item">
+                <a class="dashboard__link" href="/admin/">Панель администратора</a>
+              </li>
+              <li class="dashboard__item">
+                <a class="dashboard__link" href="{% url 'userauths:logout' %}">Выход</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-md-9">
+            <div class="dashboard__profile profile">
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
