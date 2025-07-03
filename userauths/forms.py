@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, UserProfile
 
 
 class UserRegisterForm(UserCreationForm):
@@ -32,4 +32,14 @@ class UserRegisterForm(UserCreationForm):
   class Meta:
     model = User
     fields = ["username", "email", "first_name", "last_name", "password1", "password2"]
+
+
+class UserProfileForm(forms.ModelForm):
+  phone = forms.CharField(label="", widget=forms.TextInput(attrs={
+    "placeholder": "Телефон"
+  }))
+
+  class Meta:
+    model = UserProfile
+    fields = ["phone", "image"]
     

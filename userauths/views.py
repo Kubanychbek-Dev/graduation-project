@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .forms import UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.conf import settings
 from .models import UserProfile
+from .forms import UserRegisterForm, UserProfileForm
 
 User = settings.AUTH_USER_MODEL
 
@@ -66,10 +66,24 @@ def customer_dashboard(request):
   profile = UserProfile.objects.get(user=request.user)
   
   context = {
+    "title": "Панель управления клиента",
     "profile": profile
   }
   return render(request, "userauths/customer-dashboard.html", context)
 
 
-def profile_edit(request):
-  pass
+def profile_update(request):
+  profile = request.user.profile
+  form = UserProfileForm(instance=profile)
+  if request.method == "POST":
+    form = UserProfileForm(request.POST, request.FILES, instance=profile)
+    if form.is_valid():
+      form.save()
+      messages.success(request, "Профиль успешно изменен")
+      return redirect("userauths:customer")
+  
+  context = {
+    "title": "Обновление профиля",
+    "form": form
+  }
+  return render(request, "userauths/profile_update.html", context)

@@ -38,7 +38,9 @@
               <h5 class="profile__phone">{{ profile.phone|default:"Не указан" }}</h5>
             </div>
             </div>
-            <a class="btn btn-primary" href="#">Редактировать</a>
+            <a class="btn btn-primary" href="{% url 'userauths:profile_update' %}">
+              Редактировать
+            </a>
           </div>
 
         </div>

@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+{% include "core/navbar.html" %}
+<main class="main">
+  <div class="container">
+   <div class="row">
+    <div class="col-12 col-md-9">
+      <div class="card">
+        <form action="" method="POST" enctype="multipart/form-data">
+              <div class="card-body">
+                {% csrf_token %}
+              {{ form.as_p }}
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-success" type="submit">Сохранить</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+{% endblock %}
