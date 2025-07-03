@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
+{% load static %}
 {% include "core/navbar.html" %}
 <main class="main">
   <div class="container">
@@ -8,7 +9,7 @@
           <div class="row">
           <div class="col-12 col-md-3">
             <ul class="dashboard__menu">
-              <li class="dashboard__item active-link">Профиль</li>
+              <li class="dashboard__item active-item">Профиль</li>
               <li class="dashboard__item">Мои Заказы</li>
               <li class="dashboard__item">Мой адрес</li>
               <li class="dashboard__item">Настройки профиля</li>
@@ -21,10 +22,23 @@
             </ul>
           </div>
 
-          <div class="col-12 col-md-9">
-            <div class="dashboard__profile profile">
-              
+          <div class="col-12 col-md-9 prof">
+            <div class="profile">
+            <h3 class="profile__greet-text" data-username="{{ profile.user.first_name }}">
+            </h3>
+            <div class="profile__img">
+              <img src="{{ profile.image.url }}" alt="{{ profile.full_name }}">
             </div>
+            <div class="profile__info">
+              <span>Полное имя:</span>
+              <h5 class="profile__hero">{{ profile.full_name }}</h5>
+              <span>Email:</span>
+              <h5 class="profile__email">{{ profile.user.email }}</h5>
+              <span>Телефон:</span>
+              <h5 class="profile__phone">{{ profile.phone|default:"Не указан" }}</h5>
+            </div>
+            </div>
+            <a class="btn btn-primary" href="#">Редактировать</a>
           </div>
 
         </div>
@@ -32,4 +46,5 @@
     </div>
   </div>
 </main>
+<script src="{% static 'js/customer.js' %}"></script>
 {% endblock %}

@@ -8,7 +8,6 @@ def create_user_profile(sender, instance, created, **kwargs):
   if created:
     UserProfile.objects.create(
       user=instance,
-      first_name=instance.first_name,
-      last_name=instance.last_name
+      full_name=instance.first_name + " " + instance.last_name,
     )
     

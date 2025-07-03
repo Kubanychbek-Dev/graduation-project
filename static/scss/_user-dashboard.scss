@@ -31,7 +31,53 @@
   }
 }
 
-.active-link {
+.active-item {
   color: #fff;
   background-color: green;
+}
+
+// profile
+
+.customer-dashboard {
+
+  .profile {
+
+     &__greet-text {
+    text-align: center;
+    margin-bottom: 10px;
+    font-style: italic;
+    color: green;
+  }
+
+  &__img {
+    text-align: center;
+    margin-bottom: 10px;
+
+    img {
+      width: 350px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  &__info {
+    text-align: center;
+
+    h5 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    span {
+      color: grey;
+      font-style: italic;
+    }
+  }
+
+  }
+}
+
+.customer-profile--hidden {
+  display: none;
 }

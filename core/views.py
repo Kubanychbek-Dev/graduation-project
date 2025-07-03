@@ -218,8 +218,3 @@ def update_cart_item(request):
     "cart_total_amount": cart_total_amount
   })
 
-
-def customer_dashboard(request):
-
-  context = {}
-  return render(request, "core/customer-dashboard.html", context)

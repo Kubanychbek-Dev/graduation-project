@@ -3,6 +3,7 @@ from .forms import UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.conf import settings
+from .models import UserProfile
 
 User = settings.AUTH_USER_MODEL
 
@@ -59,3 +60,16 @@ def logout_view(request):
   logout(request)
   messages.warning(request, "Вы успешно вышли из системы")
   return redirect("userauths:login")
+
+
+def customer_dashboard(request):
+  profile = UserProfile.objects.get(user=request.user)
+  
+  context = {
+    "profile": profile
+  }
+  return render(request, "userauths/customer-dashboard.html", context)
+
+
+def profile_edit(request):
+  pass

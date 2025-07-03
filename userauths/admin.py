@@ -10,5 +10,5 @@ class userAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfile)
 class userProfileAdmin(admin.ModelAdmin):
-  list_display = ("first_name", "last_name", "phone")
-  list_filter = ("first_name",)
+  list_display = ("pk", "full_name", "phone")
+  list_filter = ("full_name",)
