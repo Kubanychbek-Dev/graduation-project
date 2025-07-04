@@ -5,12 +5,18 @@
         <div class="col-12 col-md-12">
           <div class="header-upper upper">
             <div class="location">
-              <a href="#">Укажите адрес</a>
+              {% if request.user.is_authenticated %}
+              {% if address %}
+              {% for a in address %}
+              {% if a.status %}
+              <a href="{% url 'userauths:customer' %}">{{ a.address }}</a>
+              {% endif %}
+              {% endfor %}
+              {% else %}
+              <a href="{% url 'userauths:customer' %}">Укажите ваш адрес</a>
+              {% endif %}
+              {% endif %}
             </div>
-            <select name="lang" id="lang-select">
-              <option value="Englush">Eng</option>
-              <option value="Rus">Rus</option>
-            </select>
           </div>
         </div>
       </div>

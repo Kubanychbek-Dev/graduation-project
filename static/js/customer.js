@@ -22,3 +22,22 @@ dashboardItem.forEach((item) => {
     item.classList.add("active-item");
   })
 })
+
+// Select address
+$(".make-default-address").on("click", function() {
+  let id = $(this).attr("data-address-id")
+  let addressName = $(".address-name-"+id).attr("data-address-name")
+
+  $.ajax({
+    url: "/select_address",
+    data: {
+      "id": id,
+      "address": addressName
+    },
+    dataType: "json",
+    success: function(response) {
+      console.log("Address selected... ", response.boolean)
+      location.reload()
+    }
+  })
+})

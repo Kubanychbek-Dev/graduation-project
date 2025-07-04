@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.conf import settings
 from .models import UserProfile
 from .forms import UserRegisterForm, UserProfileForm
+from core.models import Address
 
 User = settings.AUTH_USER_MODEL
 
@@ -64,10 +66,22 @@ def logout_view(request):
 
 def customer_dashboard(request):
   profile = UserProfile.objects.get(user=request.user)
+  address = Address.objects.filter(user=request.user)
+
+  if request.method == "POST":
+    get_address = request.POST.get("address")
+
+    new_address = Address.objects.create(
+      user=request.user,
+      address=get_address,
+    )
+    messages.success(request, "Адрес добавлен")
+    return redirect("userauths:customer")
   
   context = {
     "title": "Панель управления клиента",
-    "profile": profile
+    "profile": profile,
+    "address": address
   }
   return render(request, "userauths/customer-dashboard.html", context)
 
@@ -87,3 +101,23 @@ def profile_update(request):
     "form": form
   }
   return render(request, "userauths/profile_update.html", context)
+
+
+def select_address(request):
+  id = request.GET.get("id")
+  address = request.GET.get("address")
+  Address.objects.update(status=False)
+  Address.objects.filter(id=id).update(status=True)
+  messages.success(request, f"Выбранный адрес: {address}")
+
+  return JsonResponse({
+    "boolean": True
+  })
+
+
+def delete_address(request, id):
+  address = Address.objects.get(id=id)
+  address_name = address.address
+  address.delete()
+  messages.success(request, f"Адрес {address_name:} удалено")
+  return redirect("userauths:customer")

@@ -78,6 +78,30 @@
   }
 }
 
+.customer-dashboard {
+  .address {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    &__wrapper {
+    border: 1px solid grey;
+    padding: 16px;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  }
+
+}
+
 .customer-profile--hidden {
   display: none;
 }

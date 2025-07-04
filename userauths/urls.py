@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register_view, login_view, logout_view, customer_dashboard, profile_update
+from .views import register_view, login_view, logout_view, customer_dashboard, profile_update, select_address, delete_address
 
 urlpatterns = [
     path("sign-up/", register_view, name="sign-up"),
@@ -8,4 +8,6 @@ urlpatterns = [
     # Customer Dashboard
     path("customer/", customer_dashboard, name="customer"),
     path("customer/update/", profile_update, name="profile_update"),
+    path("select_address/", select_address, name="select_address"),
+    path("delete_address/<int:id>/", delete_address, name="delete_address"),
 ]
