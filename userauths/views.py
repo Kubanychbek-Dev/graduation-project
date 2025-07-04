@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.conf import settings
-from .models import UserProfile
-from .forms import UserRegisterForm, UserProfileForm
+from .models import UserProfile, User
+from .forms import UserRegisterForm, UserProfileForm, AccountEditForm
 from core.models import Address
 
 User = settings.AUTH_USER_MODEL
@@ -67,6 +67,8 @@ def logout_view(request):
 def customer_dashboard(request):
   profile = UserProfile.objects.get(user=request.user)
   address = Address.objects.filter(user=request.user)
+  User = get_user_model()
+  user = User.objects.get(id=request.user.id)
 
   if request.method == "POST":
     get_address = request.POST.get("address")
@@ -81,7 +83,8 @@ def customer_dashboard(request):
   context = {
     "title": "Панель управления клиента",
     "profile": profile,
-    "address": address
+    "address": address,
+    "user": user
   }
   return render(request, "userauths/customer-dashboard.html", context)
 
@@ -121,3 +124,22 @@ def delete_address(request, id):
   address.delete()
   messages.success(request, f"Адрес {address_name:} удалено")
   return redirect("userauths:customer")
+
+
+def account_edit(request, id):
+  User = get_user_model()
+  user = User.objects.get(id=id)
+  form = AccountEditForm(instance=user)
+
+  if request.method == "POST":
+    form = AccountEditForm(request.POST, instance=user)
+    if form.is_valid():
+      form.save()
+      messages.success(request, "Аккаунт изменен")
+      return redirect("userauths:customer")
+
+  context = {
+    "form": form,
+    "title": "Редактирование вашей учетной записи"
+  }
+  return render(request, "userauths/sign_up.html", context)

@@ -12,10 +12,12 @@
               <li class="dashboard__item active-item">Профиль</li>
               <li class="dashboard__item">Мои Заказы</li>
               <li class="dashboard__item">Мой адрес</li>
-              <li class="dashboard__item">Настройки профиля</li>
+              <li class="dashboard__item">Аккаунт</li>
+              {% if request.user.is_superuser %}
               <li class="dashboard__item">
                 <a class="dashboard__link" href="/admin/">Панель администратора</a>
               </li>
+              {% endif %}
               <li class="dashboard__item">
                 <a class="dashboard__link" href="{% url 'userauths:logout' %}">Выход</a>
               </li>
@@ -92,6 +94,35 @@
               </div>
               {% endfor %}
               {% endif %}
+            </div>
+          </div>
+
+          <div class="col-12 col-md-9 acc">
+            <div class="account">
+              <div class="account__inner">
+                <span>username</span>
+                <h6>{{ user.username }}</h6>
+              </div>
+
+              <div class="account__inner">
+                <span>фамилия</span>
+                <h6>{{ user.last_name }}</h6>
+              </div>
+
+              <div class="account__inner">
+                <span>имя</span>
+                <h6>{{ user.first_name }}</h6>
+              </div>
+
+              <div class="account__inner">
+                <span>email</span>
+                <h6>{{ user.email }}</h6>
+              </div>
+
+              <div class="account__btns">
+                <a class="btn btn-success" href="{% url 'userauths:account_edit' user.id %}">Редактировать</a>
+              </div>
+
             </div>
           </div>
 

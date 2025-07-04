@@ -105,3 +105,31 @@
 .customer-profile--hidden {
   display: none;
 }
+
+.customer-dashboard {
+  .account {
+    text-align: center;
+    border: 1px solid grey;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__inner {
+      margin: 0 auto;
+      border: 2px solid green;
+      border-radius: 8px;
+      width: 50%;
+
+      span {
+        color: grey;
+      }
+
+      h6 {
+        color: #333;
+        font-size: 21px;
+        margin-top: 10px;
+      }
+    }
+  }
+}
