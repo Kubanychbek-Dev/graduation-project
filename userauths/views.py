@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.conf import settings
 from .models import UserProfile, User
@@ -143,3 +144,31 @@ def account_edit(request, id):
     "title": "Редактирование вашей учетной записи"
   }
   return render(request, "userauths/sign_up.html", context)
+
+
+def change_password(request):
+  user = request.user
+
+  if request.method == "POST":
+    old_password = request.POST.get("old-password")
+    new_password = request.POST.get("new-password")
+    confirm_new_password = request.POST.get("confirm-new-password")
+
+    if confirm_new_password != new_password:
+      messages.error(request, "Пароль не совпадает")
+      return redirect("userauths:change_password")
+    
+    if check_password(old_password, user.password):
+      user.set_password(new_password)
+      user.save()
+      messages.success(request, "пароль успешно изменен")
+      return redirect("userauths:login")
+    else:
+      messages.error(request, "Старый пароль неверен")
+      return redirect("userauths:change_password")
+  
+  context = {
+    "title": "Изменение пароля"
+  }
+  return render(request, "userauths/change-password.html", context) 
+    

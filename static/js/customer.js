@@ -41,3 +41,18 @@ $(".make-default-address").on("click", function() {
     }
   })
 })
+
+// Customer dashboard tabs
+const dashBoardItem = document.querySelectorAll(".dashboard__item");
+const dashBoardContent = document.querySelectorAll(".dashboard__content");
+
+dashboardItem.forEach((item) => {
+  item.addEventListener("click", function() {
+    dashBoardContent.forEach((content) => {
+      content.classList.add("customer-profile--hidden")
+    })
+
+    const content = document.querySelector("#" + item.dataset.tab);
+    content.classList.remove("customer-profile--hidden")
+  })
+})
