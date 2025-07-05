@@ -66,7 +66,10 @@ def product_detail_view(request, pid):
   reviews = ProductReview.objects.filter(product=product).order_by("-date")
   average_rating = ProductReview.objects.filter(product=product).aggregate(rating=Avg("rating"))
   review_form = ProductReviewForm()
-  average_rating_stars_count = int(average_rating.get("rating"))
+  if average_rating.get("rating") is not None:
+    average_rating_stars_count = int(average_rating.get("rating"))
+  else:
+    average_rating_stars_count = 0
 
   my_sessions = []
   if "cart_data_obj" in request.session:
