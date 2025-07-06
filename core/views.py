@@ -190,7 +190,7 @@ def delete_cart_item(request):
   if "cart_data_obj" in request.session:
     for p_id, item in request.session["cart_data_obj"].items():
       cart_total_amount += int(item["quantity"]) * float(item["price"])
-  
+
   return JsonResponse({
     "id": product_id,
     "totalcartitems": len(request.session["cart_data_obj"]),
@@ -221,3 +221,28 @@ def update_cart_item(request):
     "cart_total_amount": cart_total_amount
   })
 
+
+def add_to_wishList(request):
+  product_id = request.GET.get("id")
+  product = Product.objects.get(pid=product_id)
+    
+  context = {}
+
+  wishlist_count = WishList.objects.filter(product=product, user=request.user).count()
+
+  if wishlist_count > 0:
+    context = {
+      "response": "Added"
+    }
+  else:
+    new_wishlist = WishList.objects.create(
+      user=request.user,
+      product=product,
+    )
+    context = {
+      "response": "Add"
+    }
+  
+  return JsonResponse({
+    "context": context,
+  })

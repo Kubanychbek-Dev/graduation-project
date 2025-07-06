@@ -39,7 +39,7 @@ tabItem.forEach((item) => {
 
 // Add Review
 const reviewBtn = document.querySelector(".review-btn");
-reviewBtn.addEventListener("click", (e) => {
+reviewBtn.addEventListener("click", () => {
   document.querySelector(".review-form-wrapper").classList.toggle("review-form--show");
 })
 
@@ -133,3 +133,35 @@ $("#add-to-cart-btn").on("click", function() {
   })
 })
 
+
+// Add to wishlist functionality
+function changeHeartStyle() {
+  const wishBtn = document.querySelector(".wish-btn");
+  wishBtn.innerHTML = "&hearts;";
+  wishBtn.style.cssText = "color: red;";
+
+  const wishListCount = Number(document.getElementById("wishlist-count").textContent)
+  newCount = wishListCount + 1;
+  document.getElementById("wishlist-count").innerText = newCount;
+}
+
+$(".add-to-wishlist").on("click", function() {
+  let id = $(this).attr("data-product-item")
+
+  $.ajax({
+    url: "/add_to_wishList",
+    data: {
+      "id": id
+    },
+    dataType: "json",
+    beforeSend: function() {
+      console.log("Saving")
+    },
+    success: function(response) {
+      console.log("Success ", response)
+      if(response.context.response == "Add") {
+        changeHeartStyle()
+      }
+    }
+  })
+})

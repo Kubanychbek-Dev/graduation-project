@@ -36,6 +36,8 @@
           <input type="hidden" value="{{ product.pid }}" id="product-pid">
           <input type="hidden" value="{{ product.title }}" id="product-title">
           <input type="hidden" value="{{ product.image.url }}" id="product-img">
+
+          {% if request.user.is_authenticated %}
           <button type="submit" id="add-to-cart-btn" class="add-to-cart-btn btn btn-success">
             {% if product.pid in sessions %}
             Добавлено в корзину
@@ -43,7 +45,25 @@
             Добавить в корзину
             {% endif %}
           </button>
-          <span class="wish-btn">&#9825;</span>
+          {% else %}
+          <a class="btn btn-primary" href="{% url 'userauths:login' %}">
+            Добавить в корзину
+          </a>
+          {% endif %}
+
+          {% if request.user.is_authenticated %}
+          <button class="add-to-wishlist" data-product-item="{{ product.pid }}">
+            {% if product.pid in wish_id %}
+            <span style="color: red;" class="wish-btn">&hearts;</span>
+            {% else %}
+            <span class="wish-btn">&#9825;</span>
+            {% endif %}
+            </button>
+            {% else %}
+            <a class="add-to-wishlist" style="text-decoration: none; color: #333;" href="{% url 'userauths:login' %}">
+              &#9825;
+            </a>
+            {% endif %}
         </div>
         <p class="stock"><span>В наличии:</span> {{ product.stock_count }}шт</p>
       </div>

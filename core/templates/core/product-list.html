@@ -9,7 +9,19 @@
       <div class="col-12 col-md-3">
         <div class="product-card">
           <div class="product-card-header">
+            {% if request.user.is_authenticated %}
+          <button class="add-to-wishlist" data-product-item="{{ product.pid }}">
+            {% if product.pid in wish_id %}
+            <span style="color: red;" class="wish-btn">&hearts;</span>
+            {% else %}
             <span class="wish-btn">&#9825;</span>
+            {% endif %}
+            </button>
+            {% else %}
+            <a class="add-to-wishlist" style="text-decoration: none; color: #333;" href="{% url 'userauths:login' %}">
+              &#9825;
+            </a>
+            {% endif %}
           </div>
 
           <div class="product-card-body">
@@ -44,6 +56,7 @@
               <input type="hidden" class="product-id-{{ product.pid }}" value="{{ product.pid }}">
               <input type="hidden" class="product-img-{{ product.pid }}" value="{{ product.image.url }}">
               <input type="hidden" class="product-title-{{ product.pid }}" value="{{ product.title }}">
+              {% if request.user.is_authenticated %}
               <button id="add-to-cart-btn" data-index="{{ product.pid }}" class="add-cart-btn add-to-cart-btn">
                 {% if product.pid in sessions %}
             Добавлено в корзину
@@ -51,6 +64,11 @@
             Добавить в корзину
             {% endif %}
               </button>
+              {% else %}
+              <a class="btn btn-primary" href="{% url 'userauths:login' %}">
+                Добавить в корзину
+              </a>
+              {% endif %}
             </div>
           </div>
         </div>
