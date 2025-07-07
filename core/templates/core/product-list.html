@@ -14,7 +14,7 @@
             {% if product.pid in wish_id %}
             <span style="color: red;" class="wish-btn">&hearts;</span>
             {% else %}
-            <span class="wish-btn">&#9825;</span>
+            <span class="wish-btn-{{ product.pid }}">&#9825;</span>
             {% endif %}
             </button>
             {% else %}

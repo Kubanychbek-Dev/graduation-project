@@ -1,0 +1,82 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+{% include "core/navbar.html" %}
+<main class="main">
+  <div class="container">
+    <h2 class="wishlist-title">Ваш список желаний</h2>
+    <p class="wishlist-products-count">Товары в списке: <span class="wish-count">
+      {{ wishlistCount }}</span>шт</p>
+    <hr>
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="wishlist-wrapper wish-list">
+          {% if wishlist %}
+          <table class="wish-list__table">
+            <thead>
+              <tr>
+                <th>Продукт</th>
+                <th>Цена</th>
+                <th>В наличии</th>
+                <th>В корзину</th>
+                <th>Удалить</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in wishlist %}
+              <tr class="wishlist-id-{{ product.id }}">
+                <td class="product-img-wrapper">
+                  <img class="wish-list__img" src="{{ product.product.image.url }}" alt="Product">
+                <p class="wish-list__productname">
+                  <a href="{% url 'core:product_detail' product.product.pid %}">
+                    {{ product.product.title }}
+                  </a>
+                  </p>
+                </td>
+                <td>
+                  <strong class="wish-list__product-price">
+                    {{ product.product.price }}
+                  </strong>
+                </td>
+                <td>
+                  <strong class="wish-list__product-status">
+                    {{ product.product.stock_count }}шт
+                  </strong>
+                </td>
+                <td>
+                  <input type="hidden" class="product-quantity" value="1">
+                  <input type="hidden" class="product-pid-{{ product.product.pid }}" value="{{ product.product.pid }}">
+                  <input type="hidden" value="{{ product.product.image.url }}" class="product-img-{{ product.product.pid }}">
+                  <input type="hidden" class="product-title-{{ product.product.pid }}"
+                  value="{{ product.product.title }}">
+                  <input type="hidden" class="product-price-{{ product.product.pid }}" 
+                  value="{{ product.product.price }}">
+
+                <button class="wish-list__cart-btn" data-product-id="{{ product.product.pid }}">
+                  {% if product.product.pid in sessions %}
+                  Добавлено в корзину
+                  {% else %}
+                    В корзину
+                    {% endif %}
+                  </button>
+                </td>
+                <td>
+                  <button class="wish-list__remove" data-wishlist-id="{{ product.id }}">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <h2 class="text-center">Список пуст</h2>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="{% static 'js/wishlist.js' %}"></script>
+{% endblock %}

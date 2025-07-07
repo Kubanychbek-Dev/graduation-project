@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.db.models import Avg
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from .models import Category, Vendor, Product, ProductImages, CartOrder, CartOrderItems, ProductReview, WishList, Address
 from .forms import ProductReviewForm
 
@@ -246,3 +248,31 @@ def add_to_wishList(request):
   return JsonResponse({
     "context": context,
   })
+
+
+@login_required(login_url="userauths:login")
+def wishlist_view(request):
+  try:
+    wishlist = WishList.objects.filter(user=request.user)
+  except:
+    wishlist = False
+
+  context = {
+    "wishlist": wishlist
+  }
+  return render(request, "core/wishlist.html", context)
+
+
+def delete_wishlist(request):
+  id = request.GET.get("id")
+  wishlist = WishList.objects.filter(user=request.user, id=id)
+  wishlist_json = serializers.serialize("json", wishlist)
+  wishlist.delete()
+  wishlist_count = WishList.objects.filter(user=request.user).count()
+
+  return JsonResponse(
+    {
+      "wishlist": wishlist_json,
+      "count": wishlist_count
+    }
+  )

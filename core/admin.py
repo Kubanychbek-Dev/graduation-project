@@ -39,7 +39,7 @@ class ProductReviewAdmin(admin.ModelAdmin):
 
 @admin.register(WishList)
 class WishListAdmin(admin.ModelAdmin):
-  list_display = ["user", "product", "date"]
+  list_display = ["id", "user", "product", "date"]
 
 
 @admin.register(Address)
