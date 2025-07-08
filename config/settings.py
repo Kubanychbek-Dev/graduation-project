@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'core',
     'userauths',
     'useradmin',
+    'payment',
 ]
 
 MIDDLEWARE = [
