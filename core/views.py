@@ -171,6 +171,7 @@ def cart_view(request):
     for p_id, item in request.session["cart_data_obj"].items():
       cart_total_amount += int(item["quantity"]) * float(item["price"])
     return render(request, "core/cart.html", {
+      "title": "Корзина",
       "data": request.session["cart_data_obj"],
       "totalcartitems": len(request.session["cart_data_obj"]), 
       "cart_total_amount": cart_total_amount,
@@ -222,6 +223,21 @@ def update_cart_item(request):
     "totalcartitems": len(request.session["cart_data_obj"]),
     "cart_total_amount": cart_total_amount
   })
+
+
+def checkout_cart(request):
+  cart_total_amount = 0
+  if "cart_data_obj" in request.session:
+    for p_id, item in request.session["cart_data_obj"].items():
+      cart_total_amount += int(item["quantity"]) * float(item["price"])
+    
+    context = {
+      "title": "Корзина оформления заказа",
+      "cart_data": request.session["cart_data_obj"],
+      "total_cart_items": len(request.session["cart_data_obj"]),
+      "cart_amount": cart_total_amount
+    }
+    return render(request, "core/checkout-cart.html", context)
 
 
 def add_to_wishList(request):

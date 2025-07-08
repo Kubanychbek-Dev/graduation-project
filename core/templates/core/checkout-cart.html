@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% include "core/navbar.html" %}
+<main class="main">
+  <div class="container">
+    <h2 class="checkout-title">Корзина оформления заказа</h2>
+    <strong class="checkout-item-count">Товары в корзине: {{ total_cart_items }}</strong>
+    <div class="checkout">
+      <div class="row">
+        <div class="col-12 col-md-7">
+            <h5 class="checkout__recipient-details">Сведения о получателе:</h5>
+            <strong>Получатель:</strong>
+            <p class="checkout__recipient">{{ request.user.first_name }} 
+              {{ request.user.last_name }}
+            </p>
+            <strong>Email:</strong>
+            <p class="checkout__recipient_email">{{ request.user.email }}</p>
+            <strong>Номер телефона:</strong>
+            <p class="checkout__recipient_phone">{{ request.user.profile.phone }}</p>
+            <strong>Адрес:</strong>
+            <p class="checkout__recipient-address">
+              {% if address %}
+              {% for a in address %}
+              {% if a.status %}
+              {{ a.address }}
+              {% endif %}
+              {% endfor %}
+              {% else %}
+              Адрес не указан
+              {% endif %}
+              <a href="{% url 'userauths:customer' %}"><i class="fa fa-pencil"></i></a>
+            </p>
+            <textarea class="checkout__input" placeholder="Дополнительная информация" name="add-inform" id="addinform"></textarea>
+          </div>
+
+          <div class="col-12 col-md-5">
+            <div class="checkout__cart card">
+              <div class="card-header">
+                <p class="checkout__cart-title">Ваш заказ:</p>
+                <p class="checkout__subtotal">
+                  <span class="subtext">Итого-</span><span class="subtotal">{{ cart_amount|floatformat:2 }}</span>
+                </p>
+                <hr>
+              </div>
+              <div class="card-body">
+                <ul class="checkout__cart-menu">
+                  {% for product_pid, cart in cart_data.items %}
+                  <li class="checkout__cart-item">
+                    <a class="checkout__cart-product-title" href="{% url 'core:product_detail' cart.pid %}">{{ cart.title }}</a>
+                    <span class="checkout__cart-product-quantity">x{{ cart.quantity }}</span>
+                    <span class="checkout__cart-product-price">{{ cart.price }}</span>
+                    <span class="checkout__cart-product-subtotal">
+                      {% widthratio cart.price 1 cart.quantity %}
+                    </span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="card-footer">
+                <button class="checkout__cart-pay btn btn-success">
+                  Оплатить онлайн
+                </button>
+                <a class="btn btn-primary" href="{% url 'core:cart' %}">
+                  Вернуться в корзину
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+<h5 class="checkout__billing-details">Платежные реквизиты</h5>

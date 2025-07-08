@@ -136,6 +136,9 @@ def account_edit(request, id):
     form = AccountEditForm(request.POST, instance=user)
     if form.is_valid():
       form.save()
+      profile = request.user.profile
+      profile.full_name = form.cleaned_data["first_name"]+" "+ form.cleaned_data["last_name"]
+      profile.save()
       messages.success(request, "Аккаунт изменен")
       return redirect("userauths:customer")
 

@@ -1,5 +1,6 @@
 from django import forms
 from .models import ProductReview
+from userauths.models import User
 
 
 class ProductReviewForm(forms.ModelForm):

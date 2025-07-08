@@ -64,7 +64,7 @@
               <p class="cart-total-amount">
                 <span>Итого: </span><span class="cart-total-amount-span-1">{{ cart_total_amount|floatformat:2 }}</span>
               </p>
-              <a class="cart-total-btn" href="#">Перейти к оформлению</a>
+              <a class="cart-total-btn" href="{% url 'core:checkout_cart' %}">Перейти к оформлению</a>
             </div>
           </div>
         </div>
