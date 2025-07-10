@@ -27,7 +27,7 @@
             </ul>
           </div>
 
-          <div id="tab-1" class="col-12 col-md-9 dashboard__content customer-profile--hidden">
+          <div id="tab-1" class="col-12 col-md-9 dashboard__content">
             <div class="profile">
             <h3 class="profile__greet-text" data-username="{{ profile.user.first_name }}">
             </h3>
@@ -52,8 +52,45 @@
             </a>
           </div>
 
-          <div id="tab-2" class="col-12 col-md-9 dashboard__content">
-            
+          <div id="tab-2" class="col-12 col-md-9 dashboard__content customer-profile--hidden">
+            {% if orders %}
+            <div class="customer-orders">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Номер</th>
+                    <th>Сумма</th>
+                    <th>Оплаченный</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Подробнее</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <td>{{ order.oid }}</td>
+                    <td>{{ order.price }}</td>
+                    <td>
+                      {% if order.paid_status == True %}
+                      <i style="color: green; font-weight: bold;" class="fa fa-check"></i>
+                      {% else %}
+                      <i style="color: red; font-weight: bold;" class="fa-solid fa-x"></i>
+                      {% endif %}
+                    </td>
+                    <td>{{ order.order_date|date:"d.m.Y" }}</td>
+                    <td>{{ order.product_status }}</td>
+                    <td>
+                      <a href="{% url 'payment:checkout_success' order.oid %}">Подробнее</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <h2 class="text-center">Нет заказов</h2>
+            {% endif %}
           </div>
 
           <div id="tab-3" class="col-12 col-md-9 dashboard__content customer-profile--hidden">

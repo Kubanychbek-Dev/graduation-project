@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.hashers import check_password
@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 from .models import UserProfile, User
 from .forms import UserRegisterForm, UserProfileForm, AccountEditForm
-from core.models import Address
+from core.models import Address, CartOrder, CartOrderItems
 
 User = settings.AUTH_USER_MODEL
 
@@ -81,11 +81,17 @@ def customer_dashboard(request):
     messages.success(request, "Адрес добавлен")
     return redirect("userauths:customer")
   
+  try:
+    orders = CartOrder.objects.filter(user=request.user)
+  except:
+    orders = False
+  
   context = {
     "title": "Панель управления клиента",
     "profile": profile,
     "address": address,
-    "user": user
+    "user": user,
+    "orders": orders
   }
   return render(request, "userauths/customer-dashboard.html", context)
 
@@ -174,4 +180,3 @@ def change_password(request):
     "title": "Изменение пароля"
   }
   return render(request, "userauths/change-password.html", context) 
-    

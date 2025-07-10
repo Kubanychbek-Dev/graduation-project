@@ -133,3 +133,27 @@
     }
   }
 }
+
+.customer-dashboard {
+  .customer-orders {
+    width: 100%;
+    table {
+      border: 1px solid grey;
+      width: 100%;
+      background-color: #fff;
+    }
+
+    th {
+      padding: 12px;
+      background-color: #232F3E;
+      color: #fff;
+      text-align: center;
+    }
+
+    td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid grey;
+    }
+  }
+}
