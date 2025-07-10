@@ -1,0 +1,63 @@
+{% extends "core/base.html" %}
+{% block content %}
+<main class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="receipt">
+          <div class="receipt__header">
+            <h2 class="receipt__logo">ESHOP</h2>
+            <div class="receipt__transaction-id">
+              <strong>Идентификатор транзакции:</strong>
+              <span>{{ transaction_id }}</span>
+            </div>
+          </div>
+          <div class="receipt__main">
+            <table class="receipt__table">
+              <thead>
+                <tr>
+                  <th>Продукт</th>
+                  <th>Цена</th>
+                  <th>Количество</th>
+                  <th>Сумма</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if items %}
+                {% for item in items %}
+                <tr>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.price|floatformat:2 }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.total|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+            <div class="receipt__total-amount">
+              <span>Итого.....</span>
+              <strong>{{ total_amount|floatformat:2 }}</strong>
+            </div>
+          </div>
+          <div class="receipt__footer">
+            <div class="receipt__recipient-info">
+              <span>Получатель:</span>
+              <p>{{ order.user.profile }}</p>
+              <span>Адрес:</span>
+              <p>{{ order.to_address }}</p>
+            </div>
+            <hr>
+            <h5 class="receipt__footer-text">
+              Привет {{ order.user.first_name }}, спасибо за покупку в ESHOP
+            </h5>
+          </div>
+        </div>
+        <div class="receipt-btn">
+            <a class="btn btn-success" href="{% url 'core:home' %}">Совершение покупки</a>
+          </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

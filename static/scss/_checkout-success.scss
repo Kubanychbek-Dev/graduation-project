@@ -1,0 +1,82 @@
+.receipt {
+  padding: 30px 30px;
+  background-color: #fff;
+  margin-bottom: 30px;
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  &__logo {
+    font-weight: bold;
+    font-style: italic;
+    color: #0866FF;
+    font-size: 36px;
+  }
+
+  &__transaction-id {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    strong {
+      text-transform: uppercase;
+    }
+    span {
+      color: green;
+      font-weight: bold;
+    }
+  }
+
+  &__main {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__table {
+    width: 100%;
+    border: 2px solid #ddd;
+
+    thead {
+      background-color: #232F3E;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 14px;
+      border: 2px solid #ddd;
+    }
+
+  }
+
+  &__total-amount {
+    background-color: #d2d9e1;
+    padding: 14px;
+
+    span {
+      color: #333;
+    }
+    strong {
+      color: green;
+      font-size: 22px;
+    }
+  }
+
+  &__recipient-info {
+    span {
+      color: #8a8e93;
+      font-style: italic;
+    }
+  }
+
+  &__footer-text {
+    text-align: center;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+  }
+}

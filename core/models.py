@@ -131,22 +131,24 @@ class ProductImages(models.Model):
 
 
 class CartOrder(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, related_name="order", on_delete=models.CASCADE)
   price = models.DecimalField(max_digits=19, decimal_places=2)
   paid_status = models.BooleanField(default=False)
+  invoice_no = models.CharField(max_length=200, null=True)
   order_date = models.DateTimeField(auto_now_add=True)
   product_status = models.CharField(choices=STATUS_CHOICE, max_length=20, default="processing")
+  phone = models.CharField(max_length=50, null=True)
+  to_address = models.CharField(max_length=100, null=True)
 
   class Meta:
        verbose_name_plural = "Cart Order"
 
 
 class CartOrderItems(models.Model):
-    order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
-    invoice_no = models.CharField(max_length=200)
-    product_status = models.CharField(max_length=100)
+    order = models.ForeignKey(CartOrder, related_name="order_items", on_delete=models.CASCADE)
+    product_status = models.CharField(max_length=100, null=True, blank=True)
     item = models.CharField(max_length=200)
-    image = models.CharField(max_length=200)
+    image = models.CharField(max_length=200, null=True, blank=True)
     quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=19, decimal_places=2)
     total = models.DecimalField(max_digits=19, decimal_places=2)

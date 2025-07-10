@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
+{% load static %}
 {% include "core/navbar.html" %}
 <main class="main">
   <div class="container">
@@ -36,6 +37,7 @@
           <div class="col-12 col-md-5">
             <div class="checkout__cart card">
               <div class="card-header">
+                <input id="cart-subtotal" type="hidden" value="{{ cart_amount }}">
                 <p class="checkout__cart-title">Ваш заказ:</p>
                 <p class="checkout__subtotal">
                   <span class="subtext">Итого-</span><span class="subtotal">{{ cart_amount|floatformat:2 }}</span>
@@ -57,7 +59,7 @@
                 </ul>
               </div>
               <div class="card-footer">
-                <button class="checkout__cart-pay btn btn-success">
+                <button class="checkout__btn-pay  btn btn-success">
                   Оплатить онлайн
                 </button>
                 <a class="btn btn-primary" href="{% url 'core:cart' %}">
@@ -71,5 +73,5 @@
     </div>
   </div>
 </main>
+<script src="{% static 'js/checkout-cart.js' %}"></script>
 {% endblock %}
-<h5 class="checkout__billing-details">Платежные реквизиты</h5>

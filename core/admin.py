@@ -24,12 +24,12 @@ class VendorAdmin(admin.ModelAdmin):
 
 @admin.register(CartOrder)
 class CartOrderAdmin(admin.ModelAdmin):
-  list_display = ["user", "price", "paid_status", "order_date", "product_status"]
+  list_display = ["user", "price", "paid_status", "invoice_no", "order_date", "product_status", "to_address"]
 
 
 @admin.register(CartOrderItems)
 class CartOrderItemsAdmin(admin.ModelAdmin):
-  list_display = ["order", "invoice_no", "item", "image", "quantity", "price", "total"]
+  list_display = ["pk", "order", "item", "quantity", "price", "total"]
 
 
 @admin.register(ProductReview)
