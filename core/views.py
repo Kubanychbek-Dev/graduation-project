@@ -168,6 +168,12 @@ def cart_view(request):
   cart_total_amount = 0
   
   if "cart_data_obj" in request.session:
+    small_stock = []
+    products = Product.objects.all()
+    for i in products:
+      if i.stock_count == "1":
+        small_stock.append(i.pid)
+
     for p_id, item in request.session["cart_data_obj"].items():
       cart_total_amount += int(item["quantity"]) * float(item["price"])
     return render(request, "core/cart.html", {
@@ -175,6 +181,7 @@ def cart_view(request):
       "data": request.session["cart_data_obj"],
       "totalcartitems": len(request.session["cart_data_obj"]), 
       "cart_total_amount": cart_total_amount,
+      "small_stock": small_stock
     })
   else:
     return render(request, "core/cart.html")
@@ -221,7 +228,7 @@ def update_cart_item(request):
     "data": request.session["cart_data_obj"],
     "id": product_id,
     "totalcartitems": len(request.session["cart_data_obj"]),
-    "cart_total_amount": cart_total_amount
+    "cart_total_amount": cart_total_amount,
   })
 
 
@@ -272,9 +279,15 @@ def wishlist_view(request):
     wishlist = WishList.objects.filter(user=request.user)
   except:
     wishlist = False
+  
+  my_sessions = []
+  if "cart_data_obj" in request.session:
+    for i in request.session["cart_data_obj"]:
+      my_sessions.append(i)
 
   context = {
-    "wishlist": wishlist
+    "wishlist": wishlist,
+    "sessions": my_sessions
   }
   return render(request, "core/wishlist.html", context)
 

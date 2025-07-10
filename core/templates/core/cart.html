@@ -37,9 +37,15 @@
             <td class="cart__product-price">
               <strong>{{ item.price|floatformat:2 }}</strong>
             </td>
+           {% if item.pid in small_stock %}
+            <td class="cart__item-quantity">
+              <input disabled id="product-qty-{{ item.pid }}" type="number" value="{{ item.quantity }}">
+            </td>
+            {% else %}
             <td class="cart__item-quantity">
               <input id="product-qty-{{ item.pid }}" type="number" value="{{ item.quantity }}">
             </td>
+           {% endif %}
             <td class="cart__subtotal-price">
               <h4 id="subtotal-price-{{ item.pid }}" class="text-brand">{% widthratio item.price 1 item.quantity %}</h4>
             </td>
