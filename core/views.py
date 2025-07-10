@@ -25,7 +25,7 @@ def category_list_view(request):
 
 def product_list_view(request, cid):
   category = Category.objects.get(cid=cid)
-  products = Product.objects.filter(product_status="published", category=category)
+  products = Product.objects.filter(product_status="published", in_stock=True, category=category)
 
   my_sessions = []
   if "cart_data_obj" in request.session:

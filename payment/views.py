@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
-from core.models import CartOrder, CartOrderItems
+from core.models import Product, CartOrder, CartOrderItems
 from .mock_payment_provider import MockPaymentProvider
 
 
@@ -37,6 +37,13 @@ def checkout(request):
           price=item["price"],
           total=int(item["quantity"]) * float(item["price"]),
         )
+        product = Product.objects.get(pid=item["pid"])
+        product.stock_count = int(product.stock_count) - int(item["quantity"])
+        product.save()
+        if product.stock_count == 0:
+          product.in_stock = False
+          product.save()
+        
       request.session["cart_data_obj"] = {}
     
   else:
