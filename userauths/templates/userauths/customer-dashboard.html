@@ -27,7 +27,7 @@
             </ul>
           </div>
 
-          <div id="tab-1" class="col-12 col-md-9 dashboard__content">
+          <div id="tab-1" class="col-12 col-md-9 dashboard__content customer-profile--hidden">
             <div class="profile">
             <h3 class="profile__greet-text" data-username="{{ profile.user.first_name }}">
             </h3>
@@ -50,6 +50,10 @@
             <a class="btn btn-primary" href="{% url 'userauths:profile_update' %}">
               Редактировать
             </a>
+          </div>
+
+          <div id="tab-2" class="col-12 col-md-9 dashboard__content">
+            
           </div>
 
           <div id="tab-3" class="col-12 col-md-9 dashboard__content customer-profile--hidden">

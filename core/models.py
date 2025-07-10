@@ -131,9 +131,11 @@ class ProductImages(models.Model):
 
 
 class CartOrder(models.Model):
+  oid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="ord", alphabet="abcde123456")
   user = models.ForeignKey(User, related_name="order", on_delete=models.CASCADE)
   price = models.DecimalField(max_digits=19, decimal_places=2)
   paid_status = models.BooleanField(default=False)
+  order_num = models.CharField(max_length=100, null=True)
   invoice_no = models.CharField(max_length=200, null=True)
   order_date = models.DateTimeField(auto_now_add=True)
   product_status = models.CharField(choices=STATUS_CHOICE, max_length=20, default="processing")

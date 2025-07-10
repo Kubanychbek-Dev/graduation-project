@@ -56,12 +56,12 @@ def checkout(request):
     "address": user_address,
     "phone": user_phone,
     "subtotal": cart_subtotal,
-    "success_url": order.invoice_no
+    "success_url": order.oid
   })
 
 
 def checkout_success_view(request, id):
-  order = CartOrder.objects.get(invoice_no=id)
+  order = CartOrder.objects.get(oid=id)
   order_items = CartOrderItems.objects.filter(order=order)
 
   context = {
