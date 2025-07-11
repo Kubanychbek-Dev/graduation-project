@@ -12,8 +12,12 @@
               <li data-tab="tab-1" class="admin__item admin__active-item">
                 <i class="fa fa-home"></i>Dashboard
               </li>
-              <li class="admin__item">Item</li>
-              <li class="admin__item">Item</li>
+              <li data-tab="tab-2" class="admin__item">
+                <i class="fa fa-box"></i>Продукты
+              </li>
+              <li data-tab="tab-3" class="admin__item">
+                <i class="fa-solid fa-layer-group"></i>Категории
+              </li>
               <li class="admin__item">Item</li>
               <li class="admin__item">Item</li>
               <li class="admin__item">Item</li>
@@ -21,7 +25,7 @@
           </div>
         </aside>
 
-        <div id="tab-1" class="col-12 col-md-10">
+        <div id="tab-1" class="col-12 col-md-10 admin-panel--hide">
           <ul class="admin__cards">
             <li>
               <span>Доход:</span>
@@ -78,6 +82,75 @@
               {% endfor %}
             </tbody>
           </table>
+        </div>
+
+        <div id="tab-2" class="col-12 col-md-10 admin-panel--hide">
+         <table class="admin__product">
+          <thead>
+            <tr>
+              <th>Продукт</th>
+              <th>ID</th>
+              <th>Количество</th>
+              <th>Статус</th>
+              <th>Цена</th>
+              <th>Редактировать</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in all_products %}
+            <tr>
+              <td>
+                <img src="{{ product.image.url }}" alt="Product" class="admin__product-img">
+                <strong>{{ product.title }}</strong>
+              </td>
+              <td>{{ product.pid }}</td>
+              <td>{{ product.stock_count }}</td>
+              <td>{{ product.product_status }}</td>
+              <td>
+                {% if product.old_price %}
+                <strong class="admin__product-price">{{ product.price }}</strong>
+                <span class="admin__product-old-price">{{ product.old_price }}</span>
+                {% else %}
+                <strong class="admin__product-price">{{ product.price }}</strong>
+                {% endif %}
+              </td>
+              <td>
+                <a class="admin__product-edit" href="#">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+        </div>
+
+        <div id="tab-3" class="col-12 col-md-10 admin-panel--hide">
+          <table class="admin__category">
+          <thead>
+            <tr>
+              <th>Категория</th>
+              <th>ID</th>
+              <th>Редактировать</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in all_categories %}
+            <tr>
+              <td>
+                <img src="{{ category.image.url }}" alt="Product" class="admin__product-img">
+                <strong>{{ category.title }}</strong>
+              </td>
+              <td>{{ category.cid }}</td>
+              <td>
+                <a class="admin__category-edit" href="#">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
         </div>
       </div>
     </div>

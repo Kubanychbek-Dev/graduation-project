@@ -22,7 +22,7 @@ def control_panel(request):
     "revenue": revenue,
     "monthly_orders": monthly_orders,
     "all_products": all_products,
-    "all_categorie": all_categories,
+    "all_categories": all_categories,
     "new_customers": new_customers,
     "recent_orders": recent_orders,
     "monthly_revenue": monthly_revenue
