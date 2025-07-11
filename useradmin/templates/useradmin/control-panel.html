@@ -18,8 +18,14 @@
               <li data-tab="tab-3" class="admin__item">
                 <i class="fa-solid fa-layer-group"></i>Категории
               </li>
-              <li class="admin__item">Item</li>
-              <li class="admin__item">Item</li>
+              <li data-tab="tab-4" class="admin__item">
+                <i style="font-size: 20px;" class="fa-solid fa-truck"></i>
+                Заказы
+              </li>
+              <li data-tab="tab-5" class="admin__item">
+                <i style="font-size: 20px;" class="fa-solid fa-truck"></i>
+                Отправленные
+              </li>
               <li class="admin__item">Item</li>
             </ul>
           </div>
@@ -146,6 +152,74 @@
                 <a class="admin__category-edit" href="#">
                   <i class="fa fa-pencil"></i>
                 </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+        </div>
+
+        <div id="tab-4" class="col-12 col-md-10 admin-panel--hide">
+          <table class="admin__product-orders">
+            <thead>
+              <tr>
+                <th>Номер заказа</th>
+                <th>Клиент</th>
+                <th>Сумма заказа</th>
+                <th>Дата</th>
+                <th>Оплата</th>
+                <th>Подробнее</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in all_orders %}
+              <tr>
+                <td>{{ order.oid }}</td>
+                <td>{{ order.user.profile }}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.order_date|date:"d.m.Y" }}</td>
+                <td>
+                  {% if order.paid_status == True %}
+                  Оплаченный
+                  {% else %}
+                  Не оплачено
+                  {% endif %}
+                </td>
+                <td>
+                  <a class="btn btn-info" href="{% url 'useradmin:order_info' order.oid %}">Подробнее</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div id="5" class="col-12 col-md-10">
+         <table class="admin__shipped-orders">
+          <thead>
+            <tr>
+              <th>Номер Заказа</th>
+              <th>Оплата</th>
+              <th>Подробнее</th>
+              <th>Статус</th>
+              <th>Изменить статус</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in shipped_paid_orders %}
+            <tr>
+              <td>{{ order.oid }}</td>
+              <td>{{ order.paid_status }}</td>
+              <td>
+                <a class="btn btn-info" href="{% url 'useradmin:order_info' order.oid %}">Подробнее</a>
+              </td>
+              <td>{{ order.product_status }}</td>
+              <td>
+                <select data-status="{{ order.oid }}" name="order-status" id="order-status">
+                  <option value="">--Изменить статус--</option>
+                  <option value="shipped">Отправлен</option>
+                  <option value="delivered">Доставлен</option>
+                </select>
               </td>
             </tr>
             {% endfor %}

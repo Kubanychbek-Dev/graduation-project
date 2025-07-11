@@ -137,3 +137,38 @@
     }
   }
 }
+
+.admin {
+  &__product-orders {
+    width: 100%;
+    th {
+      padding: 16px 10px;
+      background-color: #232F3E;
+      color: #fff;
+      text-align: center;
+    }
+    td {
+      padding: 10px 10px;
+      background-color: #fff;
+      text-align: center;
+      border: 1px solid green;
+    }
+  }
+}
+
+.admin {
+  &__shipped-orders {
+    th {
+      padding: 16px 10px;
+      background-color: #232F3E;
+      color: #fff;
+      text-align: center;
+    }
+    td {
+      padding: 10px 10px;
+      background-color: #fff;
+      text-align: center;
+      border: 1px solid green;
+    }
+  }
+}
