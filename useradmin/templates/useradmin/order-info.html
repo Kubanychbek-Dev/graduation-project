@@ -1,0 +1,55 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="container">
+  <br>
+  <a class="btn btn-primary" href="{% url 'useradmin:control_panel' %}">Назад</a>
+  <div class="row">
+    <div class="col-12 col-md-12 order-info">
+      <div class="order">
+        <br>
+        <table class="order__table">
+          <thead>
+                <tr>
+                  <th>Продукт</th>
+                  <th>Цена</th>
+                  <th>Количество</th>
+                  <th>Сумма</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in order_items %}
+                <tr>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.price|floatformat:2 }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.total|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+        <br>
+        <strong>Общая сумма заказа:</strong>
+        <h5 class="order__amount">{{ order.price }}</h5>
+        <strong>Номер заказа:</strong>
+        <h5 class="order__amount">{{ order.oid }}</h5>
+        <strong>Идентификатор транзакции:</strong>
+        <h5 class="order__amount">{{ order.invoice_no }}</h5>
+        <strong>Оплата:</strong>
+        <h5 class="order__amount">{{ order.paid_status }}</h5>
+        <strong>Дата:</strong>
+        <h5 class="order__amount">{{ order.order_date|date:"d.m.Y" }}</h5>
+         <strong>Статус:</strong>
+        <h5 class="order__amount">{{ order.product_status }}</h5>
+        <strong>Клиент:</strong>
+        <h5 class="order__amount">{{ order.user.profile }}</h5>
+        <strong>Телефон клиента:</strong>
+        <h5 class="order__amount">{{ order.phone|default:"Не указан" }}</h5>
+        <strong>Электронная почта клиента:</strong>
+        <h5 class="order__amount">{{ order.user.email }}</h5>
+        <strong>Заказ на адрес:</strong>
+        <h5 class="order__amount">{{ order.to_address }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

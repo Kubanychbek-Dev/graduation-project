@@ -1,26 +1,87 @@
 {% extends "core/base.html" %}
 {% block content %}
+{% load static %}
 {% include "core/navbar.html" %}
 <main class="main">
   <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-3">
-        <aside class="aside">
-          <ul class="aside__menu">
-            <li class="aside__item">
-              <a href="#">Добавить продукт</a>
-            </li>
-            <li class="aside__item">Продукты</li>
-          </ul>
+    <div class="admin">
+      <div class="row">
+        <aside class="col-12 col-md-2">
+          <div class="admin__aside">
+            <ul class="admin__menu">
+              <li data-tab="tab-1" class="admin__item admin__active-item">
+                <i class="fa fa-home"></i>Dashboard
+              </li>
+              <li class="admin__item">Item</li>
+              <li class="admin__item">Item</li>
+              <li class="admin__item">Item</li>
+              <li class="admin__item">Item</li>
+              <li class="admin__item">Item</li>
+            </ul>
+          </div>
         </aside>
-      </div>
 
-      <div class="col-12 col-md-9">
-        <div class="content">
-
+        <div id="tab-1" class="col-12 col-md-10">
+          <ul class="admin__cards">
+            <li>
+              <span>Доход:</span>
+              <i style="color: green; font-size: 24px;" class="fa-solid fa-money-bill-trend-up"></i>
+              <strong>{{ revenue.price|floatformat:2 }}</strong>
+            </li>
+            <li>
+              <span>Ежемесячные заказы:</span>
+              <i style="font-size: 20px;" class="fa-solid fa-truck"></i>
+              <strong>{{ monthly_orders }}</strong>
+            </li>
+            <li>
+              <span>Продукты:</span>
+              <i style="font-size: 20px;" class="fa-solid fa-box-open"></i>
+              <strong>{{ all_products.count }}</strong>
+            </li>
+            <li>
+              <span>Ежемесячный доход:</span>
+              <i style="color: green; font-size: 24px;" class="fa-solid fa-money-bill-trend-up"></i>
+              <strong>{{ monthly_revenue.price|floatformat:2 }}</strong>
+            </li>
+          </ul>
+          <br>
+          <h3>Недавние заказы:</h3>
+          <table class="admin__latest-orders">
+            <thead>
+              <tr>
+                <th>Номер заказа</th>
+                <th>Клиент</th>
+                <th>Сумма заказа</th>
+                <th>Дата</th>
+                <th>Оплата</th>
+                <th>Подробнее</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in recent_orders %}
+              <tr>
+                <td>{{ order.oid }}</td>
+                <td>{{ order.user.profile }}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.order_date|date:"d.m.Y" }}</td>
+                <td>
+                  {% if order.paid_status == True %}
+                  Оплаченный
+                  {% else %}
+                  Не оплачено
+                  {% endif %}
+                </td>
+                <td>
+                  <a class="btn btn-info" href="{% url 'useradmin:order_info' order.oid %}">Подробнее</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </main>
+<script src="{% static 'js/control-panel.js' %}"></script>
 {% endblock %}
