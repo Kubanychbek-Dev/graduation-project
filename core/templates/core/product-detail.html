@@ -77,16 +77,21 @@
       <div class="card">
         <div class="card-body">
           <p class="address-text">
-            {% if address.address %}
-            <strong>Ваш адрес:</strong> {{ address.address }}
+            {% if address %}
+            <strong>Ваш адрес:</strong> 
+            {% for a in address %}
+            {% if a.status %}
+            {{ a.address }}
+            {% endif %}
+            {% endfor %}
             <br>
             <hr>
-            <a class="btn btn-info" href="#">Изменить адрес</a>
+            <a class="btn btn-info" href="{% url 'userauths:customer' %}">Изменить адрес</a>
             {% else %}
             <strong>Адрес не указан</strong>
             <br>
             <hr>
-            <a class="btn btn-success" href="#">Указать адрес</a>
+            <a class="btn btn-success" href="{% url 'userauths:customer' %}">Указать адрес</a>
             {% endif %}
           </p>
         </div>
@@ -97,7 +102,7 @@
         <div class="vendor-card-body">
           <div class="vendor-info">
             <h3 class="vendor-title">{{ product.vendor.title }}</h3>
-            <span class="vendor-rating">⭐⭐⭐⭐☆</span>
+            <img width="180px" src="{{ product.vendor.image.url }}" alt="">
             <br>
           </div>
         </div>

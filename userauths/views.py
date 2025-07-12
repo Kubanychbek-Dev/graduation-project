@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.conf import settings
+from .services import send_register_email
 from .models import UserProfile, User
 from .forms import UserRegisterForm, UserProfileForm, AccountEditForm
 from core.models import Address, CartOrder, CartOrderItems
@@ -28,6 +29,7 @@ def register_view(request):
       user = authenticate(username=email, password=password)
       login(request, user)
       messages.success(request, f"Привет {username}, Ваша учетная запись успешно создана")
+      send_register_email(email)
       return redirect("core:home")
     
   context = {

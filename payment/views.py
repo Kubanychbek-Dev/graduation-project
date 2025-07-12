@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from core.models import Product, CartOrder, CartOrderItems
 from .mock_payment_provider import MockPaymentProvider
+from userauths.services import send_gratitude_text
 
 
 def checkout(request):
@@ -45,6 +46,7 @@ def checkout(request):
           product.save()
         
       request.session["cart_data_obj"] = {}
+      send_gratitude_text(user.email, cart_subtotal)
     
   else:
     order.paid_status = False
