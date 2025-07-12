@@ -129,7 +129,7 @@
                 {% endif %}
               </td>
               <td>
-                <a class="admin__product-edit" href="#">
+                <a class="admin__product-edit" href="{% url 'useradmin:product_edit' product.pid %}">
                   <i class="fa fa-pencil"></i>
                 </a>
               </td>
@@ -248,7 +248,8 @@
             </tr>
           </thead>
           <tbody>
-            {% for product in product_small_stock %}
+            {% for product in all_products %}
+            {% if product.pid in product_small_stock %}
             <tr>
               <td>
                 <img src="{{ product.image.url }}" alt="Product" class="admin__product-img">
@@ -271,6 +272,7 @@
                 </a>
               </td>
             </tr>
+            {% endif %}
             {% endfor %}
           </tbody>
          </table>
@@ -307,7 +309,7 @@
                 {% endif %}
               </td>
               <td>
-                <a class="admin__product-edit" href="#">
+                <a class="admin__product-edit" href="{% url 'useradmin:product_edit' product.pid %}">
                   <i class="fa fa-pencil"></i>
                 </a>
               </td>

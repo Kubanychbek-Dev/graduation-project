@@ -26,8 +26,12 @@ def control_panel(request):
   monthly_orders = CartOrder.objects.filter(order_date__month=this_month).count()
   monthly_revenue = CartOrder.objects.filter(order_date__month=this_month).aggregate(price=Sum("price"))
 
-  product_small_stock = Product.objects.filter(stock_count__lt=10)
   in_review = Product.objects.filter(product_status="in review")
+
+  small_stock = []
+  for product in all_products:
+    if int(product.stock_count) < 10:
+      small_stock.append(product.pid)
 
   context = {
     "title": "Панель управления",
@@ -40,7 +44,7 @@ def control_panel(request):
     "recent_orders": recent_orders,
     "monthly_revenue": monthly_revenue,
     "shipped_paid_orders": shipped_paid_orders,
-    "product_small_stock": product_small_stock,
+    "product_small_stock": small_stock,
     "in_review": in_review
   }
   return render(request, "useradmin/control-panel.html", context)

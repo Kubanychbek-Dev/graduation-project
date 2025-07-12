@@ -14,7 +14,7 @@ class AddProductForm(forms.ModelForm):
     "class": "form-control input",
     "id": "current-price"
   }))
-  old_price = forms.CharField(label="Старая цена", widget=forms.NumberInput(attrs={
+  old_price = forms.CharField(required=False, label="Старая цена", widget=forms.NumberInput(attrs={
     "placeholder": "Введите старую цену, если есть скидка",
     "class": "form-control input",
     "id": "old-price"
@@ -42,7 +42,7 @@ class AddProductForm(forms.ModelForm):
     
   class Meta:
     model = Product
-    fields = ["title", "price", "old_price", "stock_count", "image", "description", "specification", "category", "vendor"]
+    fields = ["title", "price", "old_price", "stock_count", "image", "description", "specification", "category", "vendor", "product_status"]
 
 
 class ProductImagesForm(forms.ModelForm):
