@@ -53,22 +53,37 @@ class Category(models.Model):
     return self.title
 
 
-class Tags(models.Model):
-  pass
+# class Tags(models.Model):
+#   pass
   
+
+# class Vendor(models.Model):
+#   vid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="ven", alphabet="abcdefghik123456")
+#   title = models.CharField(max_length=100)
+#   image = models.ImageField(upload_to=user_directory_path)
+#   description = models.TextField(null=True, blank=True)
+#   address = models.CharField(max_length=100)
+#   contact = models.CharField(max_length=100)
+#   chat_on_time = models.CharField(max_length=100)
+#   authentic_rating = models.CharField(max_length=100)
+#   days_return = models.CharField(max_length=100)
+#   guarantee_period = models.CharField(max_length=100)
+
+#   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+#   class Meta:
+#     verbose_name_plural = "Vendors"
+  
+#   def vendor_image(self):
+#     return mark_safe("<img src='%s' width='50' height='50' />" % (self.image.url))
+  
+#   def __str__(self):
+#     return self.title
 
 class Vendor(models.Model):
   vid = ShortUUIDField(unique=True, length=10, max_length=20, prefix="ven", alphabet="abcdefghik123456")
   title = models.CharField(max_length=100)
   image = models.ImageField(upload_to=user_directory_path)
-  description = models.TextField(null=True, blank=True)
-  address = models.CharField(max_length=100)
-  contact = models.CharField(max_length=100)
-  chat_on_time = models.CharField(max_length=100)
-  authentic_rating = models.CharField(max_length=100)
-  days_return = models.CharField(max_length=100)
-  guarantee_period = models.CharField(max_length=100)
-
   user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
   class Meta:
@@ -96,11 +111,11 @@ class Product(models.Model):
   product_status = models.CharField(choices=STATUS, max_length=10, default="in review")
   stock_count = models.CharField(max_length=1000, null=True)
   in_stock = models.BooleanField(default=True)
-  status = models.BooleanField(default=True)
-  featured = models.BooleanField(default=False)
-  digital = models.BooleanField(default=False)
+  # status = models.BooleanField(default=True)
+  # featured = models.BooleanField(default=False)
+  # digital = models.BooleanField(default=False)
 
-  sku = ShortUUIDField(unique=True, length=4, max_length=10, prefix="sku", alphabet="1234567890")
+  # sku = ShortUUIDField(unique=True, length=4, max_length=10, prefix="sku", alphabet="1234567890")
 
   date = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(null=True, blank=True)
@@ -120,7 +135,7 @@ class Product(models.Model):
   
 
 class ProductImages(models.Model):
-     images = models.ImageField(upload_to="product-images")
+     image = models.ImageField(upload_to="product-images")
      product = models.ForeignKey(Product, related_name="product_imgs", on_delete=models.SET_NULL, null=True)
      date = models.DateTimeField(auto_now_add=True)
 

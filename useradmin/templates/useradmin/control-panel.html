@@ -20,13 +20,17 @@
               </li>
               <li data-tab="tab-4" class="admin__item">
                 <i style="font-size: 20px;" class="fa-solid fa-truck"></i>
-                Заказы
+                Доставленные
               </li>
               <li data-tab="tab-5" class="admin__item">
                 <i style="font-size: 20px;" class="fa-solid fa-truck"></i>
                 Отправленные
               </li>
-              <li class="admin__item">Item</li>
+              <li class="admin__item">
+                <a class="btn btn-info" href="{% url 'useradmin:add_product' %}">
+                  Добавить продукт
+                </a>
+              </li>
             </ul>
           </div>
         </aside>
@@ -194,7 +198,7 @@
           </table>
         </div>
 
-        <div id="5" class="col-12 col-md-10">
+        <div id="tab-5" class="col-12 col-md-10 admin-panel--hide">
          <table class="admin__shipped-orders">
           <thead>
             <tr>

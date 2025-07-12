@@ -12,7 +12,7 @@
           </div>
           <div class="product-other-imgs">
             {% for img in images %}
-            <img class="small-img" src="{{ img.images.url }}" alt="">
+            <img class="small-img" src="{{ img.image.url }}" alt="">
             {% endfor %}
           </div> 
         </div>
@@ -93,34 +93,14 @@
       </div>
 
       <br>
-      <div class="card card-body">
-        <div class="return-guarantee-card">
-        <strong>Возврат & гарантия:</strong>
-        <p class="return-text">Возврат в течение {{ product.vendor.days_return }} дней</p>
-        <p class="warrany-text">Гарантия {{ product.vendor.guarantee_period }} месяцев</p>
-      </div>
-      </div>
-      <br>
       <div class="vendor-card">
         <div class="vendor-card-body">
           <div class="vendor-info">
             <h3 class="vendor-title">{{ product.vendor.title }}</h3>
             <span class="vendor-rating">⭐⭐⭐⭐☆</span>
             <br>
-            <p class="vendor-address"><strong>{{ product.vendor.address }}</strong></p>
-            <a class="vendor-phone" href="tel:{{ product.vendor.contact }}">Телефон</a>
           </div>
         </div>
-        <br>
-        <div class="vendor-card-footer">
-          <a class="cendor-site" href="#">Посетите сайт</a>
-          <br>
-        </div>
-        <br>
-        <strong>Хотите стать продавцом?</strong>
-        <br>
-        <br>
-        <a class="btn btn-info" href="#">Зарегистрируйтесь сейчас</a>
       </div>
     </div>
 

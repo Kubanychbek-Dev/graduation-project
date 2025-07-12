@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% block content %}
+<main class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-9">
+        <h2 class="text-center">Добавление продукта</h2>
+        <br>
+        <form class="add-product" action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ product_form }}
+          <hr>
+          <h4>Дополнительное изображение</h4>
+          <br>
+          {{ images.management_form }}
+          {% for image in images %}
+          {{ image }}
+          {% endfor %}
+          <br>
+          <button class="btn btn-success" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

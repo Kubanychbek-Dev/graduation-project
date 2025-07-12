@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from core.models import CartOrder, CartOrderItems, Product, Category
+from core.models import CartOrder, CartOrderItems, Product, ProductImages, Category
 from django.db.models import Sum
+from django.contrib import messages
+
 from userauths.models import User
+from .forms import AddProductForm, ProductImagesSet
 
 import datetime
 
@@ -59,3 +62,28 @@ def change_order_status(request):
     "status": order_status,
     "id": order_id,
   })
+
+
+def add_product(request):
+  product_form = AddProductForm()
+  images_set = ProductImagesSet()
+
+  if request.method == "POST":
+    product_form = AddProductForm(request.POST, request.FILES)
+    images_set = ProductImagesSet(request.POST, request.FILES)
+    if product_form.is_valid() and images_set.is_valid():
+      product = product_form.save(commit=False)
+      product.user = request.user
+      product.save()
+      for img in images_set:
+        if img.has_changed():
+          images = img.save(commit=False)
+          images.product = product
+          images.save()
+      return redirect("core:home")
+
+  context = {
+    "product_form": product_form,
+    "images": images_set
+  }
+  return render(request, "useradmin/add-product.html", context)
