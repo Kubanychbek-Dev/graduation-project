@@ -172,3 +172,37 @@
     }
   }
 }
+
+.admin {
+  &__product-small {
+    th {
+      padding: 16px 10px;
+      background-color: #232F3E;
+      color: #fff;
+      text-align: center;
+    }
+    td {
+      padding: 10px 10px;
+      background-color: #fff;
+      text-align: center;
+      border: 1px solid green;
+    }
+  }
+}
+
+.admin {
+  &__product-in-review {
+    th {
+      padding: 16px 10px;
+      background-color: #232F3E;
+      color: #fff;
+      text-align: center;
+    }
+    td {
+      padding: 10px 10px;
+      background-color: #fff;
+      text-align: center;
+      border: 1px solid green;
+    }
+  }
+}

@@ -11,29 +11,37 @@ import datetime
 
 
 def control_panel(request):
-  revenue = CartOrder.objects.aggregate(price=Sum("price"))
   all_products = Product.objects.all()
   all_categories = Category.objects.all()
-  new_customers = User.objects.all().order_by("-id")
-  all_orders = CartOrder.objects.all().order_by("-order_date")
+  customers = User.objects.all().count()
+
   recent_orders = CartOrder.objects.all().order_by("-order_date")[:10]
   shipped_paid_orders = CartOrder.objects.filter(paid_status=True, product_status="shipped").order_by("-order_date")
+  delivered_orders = CartOrder.objects.filter(product_status="delivered").order_by("-order_date")
+
+  today = datetime.datetime.now().day
+  daily_revenue = CartOrder.objects.filter(order_date__day=today).aggregate(price=Sum("price"))
 
   this_month = datetime.datetime.now().month
   monthly_orders = CartOrder.objects.filter(order_date__month=this_month).count()
   monthly_revenue = CartOrder.objects.filter(order_date__month=this_month).aggregate(price=Sum("price"))
 
+  product_small_stock = Product.objects.filter(stock_count__lt=10)
+  in_review = Product.objects.filter(product_status="in review")
+
   context = {
     "title": "Панель управления",
-    "revenue": revenue,
+    "revenue": daily_revenue,
     "monthly_orders": monthly_orders,
     "all_products": all_products,
     "all_categories": all_categories,
-    "new_customers": new_customers,
-    "all_orders": all_orders,
+    "customers": customers,
+    "delivered_orders": delivered_orders,
     "recent_orders": recent_orders,
     "monthly_revenue": monthly_revenue,
-    "shipped_paid_orders": shipped_paid_orders
+    "shipped_paid_orders": shipped_paid_orders,
+    "product_small_stock": product_small_stock,
+    "in_review": in_review
   }
   return render(request, "useradmin/control-panel.html", context)
 
@@ -80,9 +88,40 @@ def add_product(request):
           images = img.save(commit=False)
           images.product = product
           images.save()
-      return redirect("core:home")
+      messages.success(request, "Товар успешно добавлен")
+      return redirect("useradmin:control_panel")
 
   context = {
+    "title": "Добавление продукта",
+    "product_form": product_form,
+    "images": images_set
+  }
+  return render(request, "useradmin/add-product.html", context)
+
+
+def product_edit(request, pid):
+  product = Product.objects.get(pid=pid)
+
+  product_form = AddProductForm(instance=product)
+  images_set = ProductImagesSet(instance=product)
+
+  if request.method == "POST":
+    product_form = AddProductForm(request.POST, request.FILES, instance=product)
+    images_set = ProductImagesSet(request.POST, request.FILES, instance=product)
+    if product_form.is_valid() and images_set.is_valid():
+      product = product_form.save(commit=False)
+      product.user = request.user
+      product.save()
+      for img in images_set:
+        if img.has_changed():
+          images = img.save(commit=False)
+          images.product = product
+          images.save()
+      messages.success(request, "Товар успешно изменен")
+      return redirect("useradmin:control_panel")
+
+  context = {
+    "title": "Изменение продукта",
     "product_form": product_form,
     "images": images_set
   }

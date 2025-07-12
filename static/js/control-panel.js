@@ -1,8 +1,18 @@
+// Control panel tabs
+const tabs = document.querySelectorAll(".tab");
 const adminItem = document.querySelectorAll(".admin__item");
+
 adminItem.forEach((item) => {
   item.addEventListener("click", function() {
     document.querySelector(".admin__active-item").classList.remove("admin__active-item");
     item.classList.add("admin__active-item");
+
+    tabs.forEach((tab) => {
+      tab.classList.add("admin-panel--hide");
+    })
+
+    const content = document.querySelector("#" + item.dataset.tab);
+    content.classList.remove("admin-panel--hide");
   })
 })
 

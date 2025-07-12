@@ -26,6 +26,10 @@
                 <i style="font-size: 20px;" class="fa-solid fa-truck"></i>
                 Отправленные
               </li>
+              <li data-tab="tab-6" class="admin__item">
+                Небольшой запас
+              </li>
+              <li data-tab="tab-7" class="admin__item">In Review</li>
               <li class="admin__item">
                 <a class="btn btn-info" href="{% url 'useradmin:add_product' %}">
                   Добавить продукт
@@ -35,7 +39,7 @@
           </div>
         </aside>
 
-        <div id="tab-1" class="col-12 col-md-10 admin-panel--hide">
+        <div id="tab-1" class="col-12 col-md-10 tab">
           <ul class="admin__cards">
             <li>
               <span>Доход:</span>
@@ -48,9 +52,9 @@
               <strong>{{ monthly_orders }}</strong>
             </li>
             <li>
-              <span>Продукты:</span>
-              <i style="font-size: 20px;" class="fa-solid fa-box-open"></i>
-              <strong>{{ all_products.count }}</strong>
+              <span>Пользователи:</span>
+              <i style="font-size: 20px;" class="fa-solid fa-user"></i>
+              <strong>{{ customers }}</strong>
             </li>
             <li>
               <span>Ежемесячный доход:</span>
@@ -94,7 +98,7 @@
           </table>
         </div>
 
-        <div id="tab-2" class="col-12 col-md-10 admin-panel--hide">
+        <div id="tab-2" class="col-12 col-md-10 tab admin-panel--hide">
          <table class="admin__product">
           <thead>
             <tr>
@@ -135,7 +139,7 @@
          </table>
         </div>
 
-        <div id="tab-3" class="col-12 col-md-10 admin-panel--hide">
+        <div id="tab-3" class="col-12 col-md-10 tab admin-panel--hide">
           <table class="admin__category">
           <thead>
             <tr>
@@ -163,7 +167,7 @@
          </table>
         </div>
 
-        <div id="tab-4" class="col-12 col-md-10 admin-panel--hide">
+        <div id="tab-4" class="col-12 col-md-10 tab admin-panel--hide">
           <table class="admin__product-orders">
             <thead>
               <tr>
@@ -176,7 +180,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for order in all_orders %}
+              {% for order in delivered_orders %}
               <tr>
                 <td>{{ order.oid }}</td>
                 <td>{{ order.user.profile }}</td>
@@ -198,7 +202,7 @@
           </table>
         </div>
 
-        <div id="tab-5" class="col-12 col-md-10 admin-panel--hide">
+        <div id="tab-5" class="col-12 col-md-10 tab admin-panel--hide">
          <table class="admin__shipped-orders">
           <thead>
             <tr>
@@ -224,6 +228,88 @@
                   <option value="shipped">Отправлен</option>
                   <option value="delivered">Доставлен</option>
                 </select>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+        </div>
+
+        <div id="tab-6" class="col-12 col-md-10 tab admin-panel--hide">
+          <table class="admin__product-small">
+          <thead>
+            <tr>
+              <th>Продукт</th>
+              <th>ID</th>
+              <th>Количество</th>
+              <th>Статус</th>
+              <th>Цена</th>
+              <th>Редактировать</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in product_small_stock %}
+            <tr>
+              <td>
+                <img src="{{ product.image.url }}" alt="Product" class="admin__product-img">
+                <strong>{{ product.title }}</strong>
+              </td>
+              <td>{{ product.pid }}</td>
+              <td>{{ product.stock_count }}</td>
+              <td>{{ product.product_status }}</td>
+              <td>
+                {% if product.old_price %}
+                <strong class="admin__product-price">{{ product.price }}</strong>
+                <span class="admin__product-old-price">{{ product.old_price }}</span>
+                {% else %}
+                <strong class="admin__product-price">{{ product.price }}</strong>
+                {% endif %}
+              </td>
+              <td>
+                <a class="admin__product-edit" href="#">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+        </div>
+
+        <div id="tab-7" class="col-12 col-md-10 tab admin-panel--hide">
+          <table class="admin__product-in-review">
+          <thead>
+            <tr>
+              <th>Продукт</th>
+              <th>ID</th>
+              <th>Количество</th>
+              <th>Статус</th>
+              <th>Цена</th>
+              <th>Редактировать</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in in_review %}
+            <tr>
+              <td>
+                <img src="{{ product.image.url }}" alt="Product" class="admin__product-img">
+                <strong>{{ product.title }}</strong>
+              </td>
+              <td>{{ product.pid }}</td>
+              <td>{{ product.stock_count }}</td>
+              <td>{{ product.product_status }}</td>
+              <td>
+                {% if product.old_price %}
+                <strong class="admin__product-price">{{ product.price }}</strong>
+                <span class="admin__product-old-price">{{ product.old_price }}</span>
+                {% else %}
+                <strong class="admin__product-price">{{ product.price }}</strong>
+                {% endif %}
+              </td>
+              <td>
+                <a class="admin__product-edit" href="#">
+                  <i class="fa fa-pencil"></i>
+                </a>
               </td>
             </tr>
             {% endfor %}
