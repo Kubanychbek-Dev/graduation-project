@@ -6,7 +6,6 @@
 - Django (Python): Для серверной части приложения, обработки запросов, управления базой данных и обеспечения безопасности.
 
 
-
 # Платформа ESHOP включает в себя разделы:
 - core (ядро)
 - useradmin (администрирование пользователей)
@@ -15,7 +14,6 @@
 
 ### В этом проекте используется виртуальное окружение .venv.
 После настройки виртуального окружения установите зависимости из файла requirements.txt:
-
 ```bash
 pip install -r requirements.txt
 ```
@@ -23,7 +21,6 @@ pip install -r requirements.txt
 ### Создание базы данных:
 1) Заполните файл .env в соответствии с файлом .env_sample.
 2) Создайте базу данных с помощью команды:
-
 ```bash
 python manage.py create_database
 ```
@@ -31,7 +28,6 @@ python manage.py create_database
 ### Создание миграций:
 1) python manage.py makemigrations
 2) python manage.py migrate
-
 ```bash
 python manage.py makemigrations
 ```
@@ -39,15 +35,9 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-
 ### Создание пользователей с помощью команды:
 ```bash
 python manage.py create_super_user
-```
-
-### Заполнение базы данных данными из фикстур:
-```bash
-python manage.py loaddata dogs.json
 ```
 
 ### Запустите команду, чтобы запустить сервер Redis: (Запустите в другом терминале)
@@ -55,7 +45,7 @@ python manage.py loaddata dogs.json
 redis-server
 ```
 
-### Запустите команду, чтобы запустить приложение PetPlace: (Запустите в другом терминале)
+### Запустите команду, чтобы запустить приложение ESHOP: (Запустите в другом терминале)
 ```bash
 python manage.py runserver
 ```
